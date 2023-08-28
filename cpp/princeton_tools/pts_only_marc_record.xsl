@@ -9,7 +9,7 @@
     
     <xsl:include href="MARC21slimUtils-pts.xsl"/>
     
-    <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
+    <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no"/>
     
     <xsl:template match="/">
         <xsl:apply-templates/>
@@ -1966,6 +1966,21 @@
                         </subfield>
                     </datafield>
                 </xsl:if>-->
+                <!-- Match&Merge unterdrücken -->
+                <xsl:choose>
+                    <xsl:when test="//*[@tag='912']">
+                        <datafield tag="912" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:value-of select="//*[@tag='912']/*[@code='a']/text()"/>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <datafield tag="912" ind1=" " ind2=" ">
+                            <subfield code="a">NOMM</subfield>
+                        </datafield>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="//*[@tag='913']">
                     <datafield tag="913" ind1="0" ind2="0">
                         <subfield code="a">
@@ -1973,6 +1988,21 @@
                         </subfield>
                     </datafield>
                 </xsl:if>
+                <!-- Abrufzeichen fuer Princeton Theological Commons -->
+                <xsl:choose>
+                    <xsl:when test="//*[@tag='935']">
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:value-of select="//*[@tag='935']/*[@code='a']/text()"/>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">prtc</subfield>
+                        </datafield>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!-- 9xx internal field  maybe date of cataloging-->
                 <xsl:if test="//*[@tag='948']">
                     <datafield tag="948" ind1=" " ind2=" ">
