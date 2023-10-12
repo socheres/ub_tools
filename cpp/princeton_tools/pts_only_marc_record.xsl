@@ -43,10 +43,9 @@
                     </controlfield>
                 </xsl:if>
                 <xsl:choose>
+                    <!-- Dieses Feld kommt 12001 mal vor, aber wird durch "DE-Tue135" überschrieben -->
                     <xsl:when test="//*[@tag='003']/text()">
-                        <controlfield tag="003">
-                            <xsl:value-of select="//*[@tag='003']/text()"/>
-                        </controlfield>
+                        <controlfield tag="003">DE-Tue135</controlfield>
                     </xsl:when>
                     <xsl:otherwise>
                         <controlfield tag="003">DE-Tue135</controlfield>
@@ -78,39 +77,7 @@
                         </datafield>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 015 - National Bibliography Number (R)  -->
-                <xsl:if test="//*[@tag='015']">
-                    <xsl:for-each select="//*[@tag='015'][local-name(*[1])='subfield']">
-                        <datafield tag="015" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 016 - National Bibliographic Agency Control Number (R) -->
-                <xsl:if test="//*[@tag='016']">
-                    <xsl:for-each select="//*[@tag='016'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">016</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 019  OCLC Control Number Cross-Reference (NR) -->
-                <xsl:if test="//*[@tag='019']">
-                    <datafield tag="019" ind1=" " ind2=" ">
-                        <xsl:for-each select="//*[@tag='019']/*[@code='a']">
-                            <subfield code="a">
-                                <xsl:value-of select="."/>
-                            </subfield>
-                        </xsl:for-each>  
-                    </datafield>
-                </xsl:if>            
+    
                 <!-- 020 - International Standard Book Number (R)  -->
                 <xsl:if test="//*[@tag='020']">
                     <xsl:for-each select="//*[@tag='020'][local-name(*[1])='subfield']">
@@ -166,30 +133,7 @@
                         </datafield>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 041 - Language Code (R)-->
-                <xsl:if test="//*[@tag='041']">
-                    <xsl:for-each select="//*[@tag='041'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">041</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 042 - Authentication Code (NR) -->
-                <xsl:if test="//*[@tag='042']">
-                    <datafield tag="042" ind1=" " ind2=" ">
-                        <xsl:for-each select="//*[@tag='042']/*[@code='a']">
-                            <subfield code="a">
-                                <xsl:value-of select="."/>
-                            </subfield>
-                        </xsl:for-each>
-                    </datafield>   
-                </xsl:if>
+
                 <!-- 043 Geographic Area Code (R) -->
                 <xsl:if test="//*[@tag='043']">
                     <xsl:for-each select="//*[@tag='043'][local-name(*[1])='subfield']">
@@ -197,48 +141,6 @@
                             <xsl:apply-templates select="*[1]"/>
                             <xsl:apply-templates select="*[position()>1]"/>
                         </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 045 - Time Period of Content (NR) -->
-                <xsl:if test="//*[@tag='045']">
-                    <xsl:for-each select="//*[@tag='045'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">045</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 046 - Special Coded Dates (R) -->
-                <xsl:if test="//*[@tag='046']">
-                    <xsl:for-each select="//*[@tag='046'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">046</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 049  Local Holdings (NR) -->
-                <xsl:if test="//*[@tag='049']">
-                    <xsl:for-each select="//*[@tag='049'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">049</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
                 <!-- 050 - Library of Congress Call Number (R) select first data from MARC second from MODS in seperate fields-->
@@ -255,6 +157,7 @@
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
+                    <!-- if 050 is empty add LCC from 090 subfield "a" Locally Assigned LC-type Call Number -->
                     <xsl:otherwise>
                         <xsl:if test="//*[@tag='050'][local-name(*[1])='subfield']">
                             <xsl:for-each select="//*[@tag='050'][local-name(*[1])='subfield']">
@@ -280,48 +183,6 @@
                         </datafield>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 052 - Geographic Classification (R)  -->
-                <xsl:if test="//*[@tag='052']">
-                    <xsl:for-each select="//*[@tag='052'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">052</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 055 - Classification Numbers Assigned in Canada (R) -->
-                <xsl:if test="//*[@tag='055']">
-                    <xsl:for-each select="//*[@tag='055'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">055</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 072 - Subject Category Code (R) -->
-                <xsl:if test="//*[@tag='072']">
-                    <xsl:for-each select="//*[@tag='072'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">072</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 082 - Dewey Decimal Classification Number (R) -->
                 <xsl:if test="//*[@tag='082']">
                     <xsl:for-each select="//*[@tag='082'][local-name(*[1])='subfield']">
@@ -336,25 +197,7 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 084 - Other Classification Number (R) -->
-                <xsl:if test="//*[@tag='084']">
-                    <xsl:for-each select="//*[@tag='084'][local-name(*[1])='subfield']">
-                        <datafield tag="084" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 088 - Report Number (R) -->
-                <xsl:if test="//*[@tag='088']">
-                    <xsl:for-each select="//*[@tag='088'][local-name(*[1])='subfield']">
-                        <datafield tag="088" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 090  Locally Assigned LC-type Call Number (R) https://www.oclc.org/bibformats/en/0xx/090.html-->            
+                <!-- 090  Locally Assigned LC-type Call Number (R) https://www.oclc.org/bibformats/en/0xx/090.html  -->          
                 <xsl:if test="//*[@tag='090']">
                     <xsl:for-each select="//*[@tag='090'][local-name(*[1])='subfield']">
                         <datafield tag="090" ind1=" " ind2=" ">
@@ -370,29 +213,6 @@
                             <xsl:with-param name="tag">092</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 096  Locally Assigned NLM-type Call Number (R)-->            
-                <xsl:if test="//*[@tag='096']">
-                    <xsl:for-each select="//*[@tag='096'][local-name(*[1])='subfield']">
-                        <datafield tag="096" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 099  Local Free-Text Call Number (R)-->                  
-                <xsl:if test="//*[@tag='099']">
-                    <xsl:for-each select="//*[@tag='099'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">099</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="subfields">
                                 <xsl:apply-templates select="*[1]"/>
                                 <xsl:apply-templates select="*[position()>1]"/>
@@ -456,34 +276,6 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>            
-                <!-- 210 - Abbreviated Title (R) -->
-                <xsl:if test="//*[@tag='210']">
-                    <xsl:for-each select="//*[@tag='210'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">210</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 222 - Key Title (R) -->
-                <xsl:if test="//*[@tag='222']">
-                    <xsl:for-each select="//*[@tag='222'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">222</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 240 - Uniform Title (NR) -->
                 <xsl:if test="//*[@tag='240']">
                     <xsl:for-each select="//*[@tag='240'][local-name(*[1])='subfield']">
@@ -498,34 +290,6 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>            
-                <!-- 242 - Translation of Title by Cataloging Agency (R) -->
-                <xsl:if test="//*[@tag='242']">
-                    <xsl:for-each select="//*[@tag='242'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">242</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 243 - Collective Uniform Title (NR) -->
-                <xsl:if test="//*[@tag='243']">
-                    <xsl:for-each select="//*[@tag='243'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">243</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 245 - Title Statement (NR) -->
                 <xsl:if test="//*[@tag='245']">
                     <xsl:for-each select="//*[@tag='245'][local-name(*[1])='subfield']">
@@ -759,33 +523,39 @@
                     </xsl:for-each>
                 </xsl:if>            
                 <!-- 440 - Series Statement/Added Entry-Title (R) -->
-                <xsl:if test="//*[@tag='440']">
-                    <xsl:for-each select="//*[@tag='440'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">440</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>            
-                <!-- 490 - Series Statement (R) -->
-                <xsl:if test="//*[@tag='490']">
-                    <xsl:for-each select="//*[@tag='490'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">490</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>            
+                <!-- 440 convert to field 490 Ind1"0" Ind2 " "-->
+                <xsl:choose>
+                    <xsl:when test="//*[@tag='440']">
+                        <xsl:for-each select="//*[@tag='440'][local-name(*[1])='subfield']">
+                            <xsl:call-template name="datafield">
+                                <xsl:with-param name="tag">490</xsl:with-param>
+                                <xsl:with-param name="ind1"><xsl:text>0</xsl:text></xsl:with-param>
+                                <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+                                <xsl:with-param name="subfields">
+                                    <xsl:apply-templates select="*[1]"/>
+                                    <xsl:apply-templates select="*[position()>1]"/>
+                                </xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when> 
+                    <xsl:otherwise>
+                        <!-- 490 - Series Statement (R) -->
+                        <xsl:if test="//*[@tag='490']">
+                            <xsl:for-each select="//*[@tag='490'][local-name(*[1])='subfield']">
+                                <xsl:call-template name="datafield">
+                                    <xsl:with-param name="tag">490</xsl:with-param>
+                                    <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
+                                    <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+                                    <xsl:with-param name="subfields">
+                                        <xsl:apply-templates select="*[1]"/>
+                                        <xsl:apply-templates select="*[position()>1]"/>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:if> 
+                    </xsl:otherwise>
+                </xsl:choose>
+                      
                 <!-- 500 - General Note (R) -->
                 <xsl:if test="//*[@tag='500']">
                     <xsl:for-each select="//*[@tag='500'][local-name(*[1])='subfield']">
@@ -827,7 +597,21 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
-                </xsl:if>            
+                </xsl:if>
+                <!-- 503 convert to 500 -->
+                <xsl:if test="//*[@tag='503']">
+                    <xsl:for-each select="//*[@tag='503'][local-name(*[1])='subfield']">
+                        <xsl:call-template name="datafield">
+                            <xsl:with-param name="tag">500</xsl:with-param>
+                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
+                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+                            <xsl:with-param name="subfields">
+                                <xsl:apply-templates select="*[1]"/>
+                                <xsl:apply-templates select="*[position()>1]"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:if>
                 <!-- 504 - Bibliography, Etc. Note (R) -->
                 <xsl:if test="//*[@tag='504']">
                     <xsl:for-each select="//*[@tag='504'][local-name(*[1])='subfield']">
@@ -895,39 +679,11 @@
                         </xsl:for-each>
                     </datafield>   
                 </xsl:if>
-                <!-- 508 - Creation/Production Credits Note (R) -->
-                <xsl:if test="//*[@tag='508']">
-                    <xsl:for-each select="//*[@tag='508'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">508</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 510 - Citation/References Note (R) -->
                 <xsl:if test="//*[@tag='510']">
                     <xsl:for-each select="//*[@tag='510'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">510</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 511 - Participant or Performer Note (R) -->
-                <xsl:if test="//*[@tag='511']">
-                    <xsl:for-each select="//*[@tag='511'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">511</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="subfields">
@@ -1035,123 +791,11 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 534 - Original Version Note (R) -->
-                <xsl:if test="//*[@tag='534']">
-                    <xsl:for-each select="//*[@tag='534'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">534</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 535 - Location of Originals/Duplicates Note (R) -->
-                <xsl:if test="//*[@tag='535']">
-                    <xsl:for-each select="//*[@tag='535'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">535</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 536 - Funding Information Note (R) -->
-                <xsl:if test="//*[@tag='536']">
-                    <xsl:for-each select="//*[@tag='536'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">536</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 538 - System Details Note (R) -->
-                <xsl:if test="//*[@tag='538']">
-                    <xsl:for-each select="//*[@tag='538'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">538</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 540 - Terms Governing Use and Reproduction Note (R) -->
                 <xsl:if test="//*[@tag='540']">
                     <xsl:for-each select="//*[@tag='540'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">540</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 541 - Immediate Source of Acquisition Note (R) -->
-                <xsl:if test="//*[@tag='541']">
-                    <xsl:for-each select="//*[@tag='541'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">541</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 545 - Biographical or Historical Data (R) -->
-                <xsl:if test="//*[@tag='545']">
-                    <xsl:for-each select="//*[@tag='545'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">545</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 546 - Language Note (R) -->
-                <xsl:if test="//*[@tag='546']">
-                    <xsl:for-each select="//*[@tag='546'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">546</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 547 - Former Title Complexity Note (R) -->
-                <xsl:if test="//*[@tag='547']">
-                    <xsl:for-each select="//*[@tag='547'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">547</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="subfields">
@@ -1175,34 +819,6 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 555 - Cumulative Index/Finding Aids Note (R) -->
-                <xsl:if test="//*[@tag='555']">
-                    <xsl:for-each select="//*[@tag='555'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">555</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 556 - Information About Documentation Note (R) -->
-                <xsl:if test="//*[@tag='556']">
-                    <xsl:for-each select="//*[@tag='556'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">556</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 580 - Linking Entry Complexity Note (R) -->
                 <xsl:if test="//*[@tag='580']">
                     <xsl:for-each select="//*[@tag='580'][local-name(*[1])='subfield']">
@@ -1217,122 +833,20 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <xsl:if test="//*[@tag='561']">
-                    <datafield tag="561" ind1=" " ind2=" ">
-                        <xsl:for-each select="//*[@tag='561']/*[@code='3']">
-                            <subfield code="3">
-                                <!-- delete last colon in subfield a -->
-                                <xsl:choose>
-                                    <xsl:when test="text()[substring(., string-length()) =':']">
-                                        <xsl:value-of select="substring(., 1, string-length() - 1)"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="."/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </subfield>
-                        </xsl:for-each>
-                        <xsl:for-each select="//*[@tag='561']/*[@code='a']">
-                            <subfield code="a">
-                                <!-- delete last comma in subfield b -->
-                                <xsl:choose>
-                                    <xsl:when test="text()[substring(., string-length()) ='.']">
-                                        <xsl:value-of select="substring(., 1, string-length() - 1)"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="."/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </subfield>
-                        </xsl:for-each>
-                        <xsl:for-each select="//*[@tag='561']/*[@code='5']">
-                            <subfield code="5">
-                                <xsl:value-of select="."/>
-                            </subfield>
-                        </xsl:for-each>
-                    </datafield>
-                </xsl:if>            
-                <!-- 590 - Local Note (BK, AM, MP, MU, VM, SE) [OBSOLETE, 1982]  -->
-                <xsl:if test="//*[@tag='590']">
-                    <xsl:for-each select="//*[@tag='590'][local-name(*[1])='subfield']">
-                        <datafield tag="590" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
+                <!-- 588 - Source of Description, Etc. Note (R) -->
+                <xsl:if test="//*[@tag='588']">
+                    <xsl:for-each select="//*[@tag='588'][local-name(*[1])='subfield']">
+                        <xsl:call-template name="datafield">
+                            <xsl:with-param name="tag">588</xsl:with-param>
+                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
+                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+                            <xsl:with-param name="subfields">
+                                <xsl:apply-templates select="*[1]"/>
+                                <xsl:apply-templates select="*[position()>1]"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
                     </xsl:for-each>
-                </xsl:if>
-                <!-- 591 - Local Note -->
-                <xsl:if test="//*[@tag='591']">
-                    <xsl:for-each select="//*[@tag='591'][local-name(*[1])='subfield']">
-                        <datafield tag="591" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 592 - Local Note -->
-                <xsl:if test="//*[@tag='592']">
-                    <xsl:for-each select="//*[@tag='592'][local-name(*[1])='subfield']">
-                        <datafield tag="592" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 593 - Local Note -->
-                <xsl:if test="//*[@tag='593']">
-                    <xsl:for-each select="//*[@tag='593'][local-name(*[1])='subfield']">
-                        <datafield tag="593" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 594 - Local Note -->
-                <xsl:if test="//*[@tag='594']">
-                    <xsl:for-each select="//*[@tag='594'][local-name(*[1])='subfield']">
-                        <datafield tag="594" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>            
-                <!-- 596 - Local Note -->
-                <xsl:if test="//*[@tag='596']">
-                    <xsl:for-each select="//*[@tag='596'][local-name(*[1])='subfield']">
-                        <datafield tag="596" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>   
-                <!-- 597 - Local Note -->
-                <xsl:if test="//*[@tag='597']">
-                    <xsl:for-each select="//*[@tag='597'][local-name(*[1])='subfield']">
-                        <datafield tag="597" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 598 - Local Note -->
-                <xsl:if test="//*[@tag='598']">
-                    <xsl:for-each select="//*[@tag='598'][local-name(*[1])='subfield']">
-                        <datafield tag="598" ind1=" " ind2=" ">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 599 - Local Note -->
-                <xsl:if test="//*[@tag='599']">
-                    <xsl:for-each select="//*[@tag='599'][local-name(*[1])='subfield']">
-                        <datafield tag="599" ind1="9" ind2="9">
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
+                </xsl:if>  
                 <!-- 600 - Subject Added Entry-Personal Name (R) -->
                 <xsl:if test="//*[@tag='600']">
                     <xsl:for-each select="//*[@tag='600'][local-name(*[1])='subfield']">
@@ -1376,11 +890,25 @@
                     </xsl:for-each>
                 </xsl:if>
                 <!-- 630 - Subject Added Entry-Uniform Title (R) -->
-                <xsl:if test="//*[@tag='630']">
+                <xsl:if test="//*[@tag='630'] and not(mods:subject[local-name(*[1])='titleInfo'])">
                     <xsl:for-each select="//*[@tag='630'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">630</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
+                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
+                            <xsl:with-param name="subfields">
+                                <xsl:apply-templates select="*[1]"/>
+                                <xsl:apply-templates select="*[position()>1]"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:if>
+                <!-- 647 - Subject Added Entry-Named Event (R) -->
+                <xsl:if test="//*[@tag='647']">
+                    <xsl:for-each select="//*[@tag='647'][local-name(*[1])='subfield']">
+                        <xsl:call-template name="datafield">
+                            <xsl:with-param name="tag">647</xsl:with-param>
+                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="subfields">
                                 <xsl:apply-templates select="*[1]"/>
@@ -1419,7 +947,7 @@
                     </xsl:for-each>
                 </xsl:if>
                 <!-- 651 - Subject Added Entry-Geographic Name (R) -->
-                <xsl:if test="//*[@tag='651']">
+                <xsl:if test="//*[@tag='651'] and not(mods:subject[local-name(*[1])='geographic'])">
                     <xsl:for-each select="//*[@tag='651'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">651</xsl:with-param>
@@ -1461,7 +989,8 @@
                     </xsl:for-each>
                 </xsl:if>
                 <!-- 690 - Local Subject Added Entry-Topical Term (R) -->
-                <xsl:if test="//*[@tag='690']">
+                <!-- 690 already converted in 650 -->
+                <!-- <xsl:if test="//*[@tag='690']">
                     <xsl:for-each select="//*[@tag='690'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">690</xsl:with-param>
@@ -1473,9 +1002,9 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
-                </xsl:if>
+                </xsl:if>-->
                 <!-- 691 - Local Subject Added Entry-Geographic Name (R) -->
-                <xsl:if test="//*[@tag='691']">
+                <!-- <xsl:if test="//*[@tag='691']">
                     <xsl:for-each select="//*[@tag='691'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">691</xsl:with-param>
@@ -1487,7 +1016,7 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
-                </xsl:if>
+                </xsl:if>-->
     
                 <xsl:apply-templates/>
                 
@@ -1598,104 +1127,6 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 740 - Added Entry-Uncontrolled Related/Analytical Title (R) -->
-                <xsl:if test="//*[@tag='740']">
-                    <xsl:for-each select="//*[@tag='740'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">740</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 751 - Added Entry-Geographic Name (R) -->
-                <xsl:if test="//*[@tag='751']">
-                    <xsl:for-each select="//*[@tag='751'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">751</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 752 - Added Entry-Hierarchical Place Name (R) -->
-                <xsl:if test="//*[@tag='752']">
-                    <xsl:for-each select="//*[@tag='752'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">752</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 753 - System Details Access to Computer Files (R) -->
-                <xsl:if test="//*[@tag='753']">
-                    <xsl:for-each select="//*[@tag='753'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">753</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 760 - Main Series Entry (R) -->
-                <xsl:if test="//*[@tag='760']">
-                    <xsl:for-each select="//*[@tag='760'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">760</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 770 - Supplement/Special Issue Entry (R) -->
-                <xsl:if test="//*[@tag='770']">
-                    <xsl:for-each select="//*[@tag='770'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">770</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 772 - Supplement Parent Entry (R) -->
-                <xsl:if test="//*[@tag='772']">
-                    <xsl:for-each select="//*[@tag='772'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">772</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 773 - Host Item Entry (R) -->
                 <xsl:if test="//*[@tag='773']">
                     <xsl:for-each select="//*[@tag='773'][local-name(*[1])='subfield']">
@@ -1738,20 +1169,6 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 777 - Issued With Entry (R) -->
-                <xsl:if test="//*[@tag='777']">
-                    <xsl:for-each select="//*[@tag='777'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">777</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 780 - Preceding Entry (R) -->
                 <xsl:if test="//*[@tag='780']">
                     <xsl:for-each select="//*[@tag='780'][local-name(*[1])='subfield']">
@@ -1771,34 +1188,6 @@
                     <xsl:for-each select="//*[@tag='785'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
                             <xsl:with-param name="tag">785</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 786 - Data Source Entry (R) -->
-                <xsl:if test="//*[@tag='786']">
-                    <xsl:for-each select="//*[@tag='786'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">786</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 787 - Other Relationship Entry (R) -->
-                <xsl:if test="//*[@tag='787']">
-                    <xsl:for-each select="//*[@tag='787'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">787</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="subfields">
@@ -1864,34 +1253,30 @@
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:if>
-                <!-- 850 - Holding Institution (R)  -->
-                <xsl:if test="//*[@tag='850']">
-                    <xsl:for-each select="//*[@tag='850'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">850</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
                 <!-- 852 - Location (R) -->
-                <xsl:if test="//*[@tag='852']">
-                    <xsl:for-each select="//*[@tag='852'][local-name(*[1])='subfield']">
-                        <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">852</xsl:with-param>
-                            <xsl:with-param name="ind1"><xsl:call-template name="firstIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
-                            <xsl:with-param name="subfields">
-                                <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:if>
+                <!-- 852 will override/add by "DE-Tue135" -->
+                <xsl:choose>
+                    <xsl:when test="//*[@tag='852']">
+                        <xsl:for-each select="//*[@tag='852'][local-name(*[1])='subfield']">
+                            <xsl:call-template name="datafield">
+                                <xsl:with-param name="tag">852</xsl:with-param>
+                                <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
+                                <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+                                <xsl:with-param name="subfields">
+                                    <subfield code="a">
+                                        <xsl:text>DE-Tue135</xsl:text>
+                                    </subfield>
+                                </xsl:with-param>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <datafield tag="852" ind1=" " ind2=" ">
+                            <subfield code="a">DE-Tue135</subfield>
+                        </datafield>
+                    </xsl:otherwise>
+                </xsl:choose>
+
                 <!-- 856 - Electronic Location and Access (R) -->
                 <xsl:if test="//*[@tag='856']">
                     <xsl:for-each select="//*[@tag='856'][local-name(*[1])='subfield']">
@@ -1908,12 +1293,13 @@
                 </xsl:if>
                 <!-- 856 MARC from mods data without template-->
                 <xsl:if test="//*[local-name()='url']">
-                    <datafield tag="856" ind1=" " ind2=" ">
+                    <datafield tag="856" ind1="4" ind2="0">
                         <xsl:for-each select="//*[local-name()='url']">
                             <subfield code="u">
                                 <xsl:value-of select="."/>
                             </subfield>
                         </xsl:for-each>
+                        <subfield code="z">LF</subfield>
                     </datafield>
                 </xsl:if>
                 <!-- 866 - Textual Holdings - Basic Bibliographic Unit (R) -->
@@ -1946,14 +1332,6 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Albert Andrew Fulton Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Ashbel Green Simonton Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?ashbel\s?green\s?simonton\s?manuscript\s?collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
                             </subfield>
                         </datafield>
                     </xsl:when>
@@ -2298,7 +1676,7 @@
                             </subfield>
                         </datafield>
                     </xsl:when>
-                    <!-- MRL Pamplhlets selection criteria not defined ToDo:MAYBE with <namePart>-->
+                    <!-- MRL Pamphlets selection criteria not defined ToDo:MAYBE with <namePart>-->
                     <!-- Payne Seminary/AME Archive ToDo:Check if <namePart> -->
                     <xsl:when test="matches(//*[@tag='730']/*[@code='a']/text(), '^African\s?Methodist\s?Episcopal\s?Church', 'i')">
                         <datafield tag="866" ind1=" " ind2=" ">
@@ -2420,14 +1798,14 @@
                 <xsl:choose>
                     <xsl:when test="//*[@tag='935']">
                         <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:value-of select="//*[@tag='935']/*[@code='a']/text()"/>
-                            </subfield>
+                            <subfield code="a">prtc</subfield>
+                            <subfield code="2">LOK</subfield>
                         </datafield>
                     </xsl:when>
                     <xsl:otherwise>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">prtc</subfield>
+                            <subfield code="2">LOK</subfield>
                         </datafield>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -2450,7 +1828,7 @@
                 <!-- 9xx internal field -->            
     
                 <!-- 9xx internal field  maybe date of cataloging-->
-                <xsl:if test="//*[@tag='988']">
+                <!--<xsl:if test="//*[@tag='988']">
                     <datafield tag="988" ind1=" " ind2=" ">
                         <xsl:for-each select="//*[@tag='988']/*[@code='a']">
                             <subfield code="a">
@@ -2463,7 +1841,7 @@
                             </subfield>
                         </xsl:for-each>
                     </datafield>
-                </xsl:if>
+                </xsl:if>-->
             </record>     
         </collection>
     </xsl:template>
@@ -3044,7 +2422,7 @@
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="@type='corporate'">
+                <xsl:when test="@type='corporate' and not(//*[@tag='610'])">
                     <xsl:call-template name="datafield">
                         <xsl:with-param name="tag">610</xsl:with-param>
                         <xsl:with-param name="ind1">2</xsl:with-param>
@@ -3069,7 +2447,7 @@
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="@type='conference'">
+                <xsl:when test="@type='conference' and not(//*[@tag='611'])">
                     <xsl:call-template name="datafield">
                         <xsl:with-param name="tag">611</xsl:with-param>
                         <xsl:with-param name="ind1">2</xsl:with-param>
@@ -3432,5 +2810,6 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    
 
 </xsl:stylesheet>
