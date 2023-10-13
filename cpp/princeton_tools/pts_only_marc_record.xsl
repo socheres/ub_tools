@@ -4,7 +4,7 @@
     xmlns:mods="http://www.loc.gov/mods/v3"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:marc="http://www.loc.gov/MARC21/slim"
-    exclude-result-prefixes="mods xlink marc">
+    exclude-result-prefixes="mods xlink">
 
     
     <xsl:include href="MARC21slimUtils-pts.xsl"/>
@@ -23,7 +23,7 @@
 
     <xsl:template match="*"/>
     
-    <xsl:strip-space  elements="*"/>
+    <xsl:strip-space elements="*"/>
     
     <xsl:template match="mods:mods">
         <collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
@@ -119,15 +119,6 @@
                 <xsl:if test="//*[@tag='035']">
                     <xsl:for-each select="//*[@tag='035'][local-name(*[1])='subfield']">
                         <datafield tag="035" ind1=" " ind2=" ">            
-                            <xsl:apply-templates select="*[1]"/>
-                            <xsl:apply-templates select="*[position()>1]"/>
-                        </datafield>
-                    </xsl:for-each>
-                </xsl:if>
-                <!-- 040 - Cataloging Source (NR) -->
-                <xsl:if test="//*[@tag='040']">
-                    <xsl:for-each select="//*[@tag='040'][local-name(*[1])='subfield']">
-                        <datafield tag="040" ind1=" " ind2=" ">
                             <xsl:apply-templates select="*[1]"/>
                             <xsl:apply-templates select="*[position()>1]"/>
                         </datafield>
@@ -299,7 +290,7 @@
                             <xsl:with-param name="ind2"><xsl:call-template name="secondIndFromMarc"/></xsl:with-param>
                             <xsl:with-param name="subfields">
                                 <xsl:apply-templates select="*[1]"/>
-                                <xsl:apply-templates select="*[position()>1]"/>
+                                <xsl:apply-templates select="*[position()>1]"/>                                
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
