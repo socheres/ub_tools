@@ -176,7 +176,7 @@
 	</xsl:template>
 
 	<xsl:template match="mods:mods">
-		<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+		<collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
 			<record>
 				<xsl:choose>
 					<xsl:when test="parent::mods:modsCollection"/>
@@ -551,11 +551,41 @@
 				<xsl:call-template name="source"/>
 				<xsl:apply-templates/>
 				<datafield tag="500" ind1=" " ind2=" ">
-					<subfield code="a">Converted from MODS 3.7 to MARCXML using MODS3-7_MARC21slim_XSLT1-0_ubtue.xsl (Based on Revision 3.06 20200514)</subfield>
+					<subfield code="a">Converted from MODS 3.7 to MARCXML using pts_only_mods_record.xsl, a modified version of MODS3-7_MARC21slim_XSLT1-0_ubtue.xsl (Based on Revision 3.06 20200514)</subfield>
 				</datafield>
 				<xsl:if test="mods:classification[@authority='lcc']">
 					<xsl:call-template name="lcClassification"/>
 				</xsl:if>
+				<!-- 852 - Location (R) -->
+				<!-- 852 will override/add by "DE-Tue135" -->
+				<xsl:choose>
+					<xsl:when test="mods:location/mods:physicalLocation">
+						<xsl:for-each select="mods:location/mods:physicalLocation">
+							<xsl:call-template name="datafield">
+								<xsl:with-param name="tag">852</xsl:with-param>
+								<xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
+								<xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+								<xsl:with-param name="subfields">
+									<subfield code="a">
+										<xsl:text>DE-Tue135</xsl:text>
+									</subfield>
+								</xsl:with-param>
+							</xsl:call-template>
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:otherwise>
+						<datafield tag="852" ind1=" " ind2=" ">
+							<subfield code="a">DE-Tue135</subfield>
+						</datafield>
+					</xsl:otherwise>
+				</xsl:choose>
+				<datafield tag="912" ind1=" " ind2=" ">
+					<subfield code="a">NOMM</subfield>
+				</datafield>
+				<datafield tag="935" ind1=" " ind2=" ">
+					<subfield code="a">PRTC</subfield>
+					<subfield code="2">LOK</subfield>
+				</datafield>
 			</record>
 		</collection>
 	</xsl:template>
@@ -961,22 +991,32 @@
 	<!-- ubtue:manual additions for physicalDescription-->
 	<xsl:template match="mods:physicalDescription/mods:form[@authority='local']">
 		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">955</xsl:with-param>
-			<xsl:with-param name="ind2">7</xsl:with-param>
+			<xsl:with-param name="tag">650</xsl:with-param>
+			<xsl:with-param name="ind2">4</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<subfield code='a'>
-					<xsl:value-of select="."/>
-				</subfield>        
-				<subfield code='2'>ubtue_phys_genre</subfield>
+					<xsl:text>|f|</xsl:text><xsl:value-of select="."/>
+				</subfield>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
+	<!-- 650 MARC from MODS data [besser als Lokales Schlagwort im Exemplardaten?]-->
+	<xsl:template match="//*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']">
+		<datafield tag="650" ind1=" " ind2="4">
+			<subfield code="a">
+				<xsl:value-of select="concat('|f|', //*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']/text())"/>
+			</subfield>
+		</datafield>
+	</xsl:template>
+	
 	<!-- ubtue: remove linebreak-->
 	<xsl:template match="*/text()[normalize-space()]">
 		<xsl:value-of select="normalize-space()"/>
 	</xsl:template>
 	<xsl:template match="*/text()[not(normalize-space())]" />
-	<!-- ubtue: tag 300-->
+	
+    <!-- ubtue: tag 300
 	<xsl:template match="mods:extension">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">300</xsl:with-param>
@@ -988,7 +1028,7 @@
 				</subfield>
 			</xsl:with-param>	
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>	-->
 	
 
 <!-- Origin Info elements -->
@@ -1005,14 +1045,14 @@
 				</xsl:with-param>
 			</xsl:call-template>
 		</xsl:for-each>
-		<!-- v3.4 -->
-		<xsl:if test="mods:dateCaptured[@encoding='iso8601']">
+	    <!-- v3.4 --> 						
+	    <xsl:if test="mods:dateCaptured[@encoding='iso8601']|mods:dateCoptured">
 			<xsl:call-template name="datafield">
 				<xsl:with-param name="tag">033</xsl:with-param>
 				<xsl:with-param name="ind1">
 					<xsl:choose>
 						<xsl:when test="mods:dateCaptured[@point='start']|mods:dateCaptured[@point='end']">2</xsl:when>
-						<xsl:otherwise>0</xsl:otherwise>
+					    <xsl:otherwise>0</xsl:otherwise>
 					</xsl:choose>
 				</xsl:with-param>
 				<xsl:with-param name="ind2">0</xsl:with-param>
@@ -1025,6 +1065,21 @@
 				</xsl:with-param>
 			</xsl:call-template>
 		</xsl:if>
+	    <!-- ubtue -->
+	    <xsl:if test="mods:dateCaptured">
+	        <xsl:call-template name="datafield">
+	            <xsl:with-param name="tag">264</xsl:with-param>
+	            <xsl:with-param name="ind1">3</xsl:with-param>
+	            <xsl:with-param name="ind2">1</xsl:with-param>
+	            <xsl:with-param name="subfields">
+	                <xsl:for-each select="mods:dateCaptured">
+	                    <subfield code='c'>
+	                        <xsl:value-of select="."/>
+	                    </subfield>
+	                </xsl:for-each>
+	            </xsl:with-param>
+	        </xsl:call-template>
+	    </xsl:if>
 		<!-- v3 dates -->
 		<xsl:if test="mods:dateModified|mods:dateCreated|mods:dateValid">
 			<xsl:call-template name="datafield">
@@ -2175,7 +2230,8 @@
 
 	<!-- v3 physicalLocation -->
 	<!-- 2.01 -->
-	<xsl:template match="mods:location/mods:physicalLocation">
+	<!-- unescape 852 should be local 852 -->
+	<!--<xsl:template match="mods:location/mods:physicalLocation">
 			<xsl:call-template name="datafield">
 				<xsl:with-param name="tag">852</xsl:with-param>
 				<xsl:with-param name="subfields">
@@ -2186,8 +2242,8 @@
 						<subfield code="u">
 							<xsl:value-of select="."/>
 						</subfield>
-					</xsl:if>
-					<!-- v3 displayLabel -->
+					</xsl:if>-->
+					<!-- v3 displayLabel 
 					<xsl:for-each select="@displayLabel">
 						<subfield code="3">
 							<xsl:value-of select="."/>
@@ -2195,7 +2251,7 @@
 					</xsl:for-each>
 				</xsl:with-param>
 			</xsl:call-template>
-	</xsl:template>
+	</xsl:template>-->
 	<!-- 2.01 -->
 <!-- v3.4 add physical location url
 	<xsl:template match="mods:location/mods:physicalLocation[@xlink]">
