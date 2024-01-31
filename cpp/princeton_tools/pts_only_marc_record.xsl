@@ -26,7 +26,7 @@
     <xsl:strip-space elements="*"/>
     
     <xsl:template match="mods:mods">
-        <collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+        <collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
             <record>
                 <xsl:choose>
                     <xsl:when test="parent::mods:modsCollection"/>
