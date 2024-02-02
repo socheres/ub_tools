@@ -3,8 +3,8 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:mods="http://www.loc.gov/mods/v3"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	exclude-result-prefixes="mods xlink"
-	xmlns:marc="http://www.loc.gov/MARC21/slim">
+	xmlns:marc="http://www.loc.gov/MARC21/slim"
+	exclude-result-prefixes="mods xlink">
 <!--
 	Maintenance note: For each revision, change the content of <datafield tag="500" ind1=" " ind2=" "><subfield code="a"> to reflect the new revision number.
 	MODS v3.7  (Revision 3.06) 20200514
@@ -34,6 +34,9 @@
 		</collection>
 	</xsl:template>
 	
+	<xsl:template match="*"/>
+	
+	<xsl:strip-space elements="*"/>
 	
 	<xsl:template match="mods:targetAudience[@authority='marctarget']" mode="ctrl008">
 		<xsl:choose>
@@ -586,6 +589,419 @@
 					<subfield code="a">PRTC</subfield>
 					<subfield code="2">LOK</subfield>
 				</datafield>
+				<!-- add collections tags for navigation 866 and Abrufzeichen 935 -->
+                <xsl:choose>
+                    <!-- Albert Andrew Fulton Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?albert\s?andrew', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Albert Andrew Fulton Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aafum</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Ashbel Green Simonton Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?ashbel\s?green\s?simonton\s?manuscript\s?collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aagsm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Academy of Homiletics -->
+                    <xsl:when test="matches(mods:note, 'academy\s?of\s?homiletics', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Academy of Homiletics</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aahom</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- The Belle Sparr Luckett Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?belle\s?sparr\s?luckett\s?manuscript\s?collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;abslm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Benson collection of hymnals and hymnology -->
+                    <xsl:when test="matches(mods:note, '^benson\s?collection\s?of\s?hymnals', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;abehy</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Beth Mardutho: The Syriac Institute -->
+                    <xsl:when test="matches(//*[local-name()='collection_set'], '^bethmardutho', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Beth Mardutho: The Syriac Institute</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;abmsi</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Caleb Cook Baldwin Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^caleb\s?cook\s?baldwin\s?manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Caleb Cook Baldwin Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;acbam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- David and Jane Wales Trumbull Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^david\s?and\s?jane\s?wales\s?trumbull', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#David and Jane Wales Trumbull Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;adjwt</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>                    
+                    <!-- Earl palmer Collection all files are missing in ptsem_xx.zip ToDo:ask pts  -->
+                    
+                    <!-- Edward Warren Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^edward\s?warren\s?manuscript\s?collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Edward Warren Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aewam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- The George H. Bowen Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?George\s?h\.?\s?bowen\s?manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The George H. Bowen Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aghbm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- The Harry A. Rhodes Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?Harry\s?a\.?\s?rhodes\s?manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Harry A. Rhodes Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aharm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- The James Watt Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?James\s?Watt\s?Manuscript\s?Collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The James Watt Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;ajwam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- John A. Mackay collection -->
+                    <xsl:when test="matches(mods:note, '^John\s?A\.\s?Mackay\s?Collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#John A. Mackay collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;ajamc</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Langley Kitching South Africa/Madagascar Collection -->
+                    <xsl:when test="matches(mods:note, '^Langley\s?Kitching\s?South\s?Africa', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Langley Kitching South Africa/Madagascar Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;alksm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Latin America Collection selection criteria is still unknown maybe <namePart>Henry Luce Foundation</namePart>-->
+                    
+                    <!-- Levi Janvier Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^Levi\s?Janvier\s?Manuscript\s?Collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Levi Janvier Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aljam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Michael S. Culbertson Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^Michael\s?S\.\s?Culbertson\s?Manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Michael S. Culbertson Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;amcum</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Missio Seminary Collection -->
+                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^Missio\s?Seminary', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Missio Seminary Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;amise</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Moffett Korea Collection -->
+                    <xsl:when test="matches(mods:note, '^moffett\s?korea\s?collection', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Moffett Korea Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;amoko</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- MRL Pamplhlets selection criteria not defined ToDo:MAYBE with <namePart>-->
+                    <!-- Payne Seminary/AME Archive ToDo:Check if <namePart> -->
+                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^African\s?Methodist\s?Episcopal\s?Church', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;apsam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Payne Seminary/AME Archive ToDo:Check if <namePart> -->
+                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^African\s?Methodist\s?Episcopal\s?Church', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;apsam</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- PTS Journals ToDo:criteria unkown -->
+                    <!-- PTS Media Archive ToDo:criteria unkown -->
+                    <!-- Robert Elliott Speer Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^Robert\s?Elliott\s?Speer\s?Manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Elliott Speer Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;aresm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Robert Hamill Nassau Manuscript Collection -->
+                    <xsl:when test="matches(mods:note, '^Robert\s?Hamill\s?Nassau\s?Manuscript', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Hamill Nassau Manuscript Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;arhnm</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- The Scott Family  Collection -->
+                    <xsl:when test="matches(mods:note, '^the\s?Scott\s?Family', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Scott Family Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;asfco</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Seminario Evangélico P.R. all files are missing in ptsem_xx.zip ToDo:ask pts-->
+                    <!-- Sheldon Jackson Collection ToDo:criteria unkown -->
+                    <!-- Thomas F. Torrance Collection -->
+                    <xsl:when test="matches(mods:note, '^Thomas\s?F\.\s?Torrance\sCollection?', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Thomas F. Torrance Collection</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;atftc</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                    <!-- Tanis Postcards Collection ToDo:mods:name[@type='personal'] "James R. Tanis" AND mods:physicalDescription/mods:form[@authority='local'] = "Postcard"-->
+                    <!-- Weld Missionary Papers -->
+                    <xsl:when test="matches(mods:note, '^William\s?E\.\s?and\s?Margaret\s?E\.\s?Weld', 'i')">
+                        <datafield tag="866" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Weld Missionary Papers</xsl:text>                          
+                            </subfield>
+                        </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC&amp;awemi</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
+                    </xsl:when>
+                </xsl:choose>
 			</record>
 		</collection>
 	</xsl:template>
