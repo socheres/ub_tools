@@ -23,7 +23,7 @@
 	<xsl:include href="MARC21slimUtils-pts.xsl"/>
 
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
-	
+
 	<xsl:template match="/">
 			<xsl:apply-templates/>
 	</xsl:template>
@@ -586,418 +586,6 @@
 					<subfield code="a">PRTC</subfield>
 					<subfield code="2">LOK</subfield>
 				</datafield>
-				<!-- add collections tags for navigation 866 and Abrufzeichen 935 -->
-                <xsl:choose>
-                    <!-- Albert Andrew Fulton Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?albert\s?andrew', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Albert Andrew Fulton Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aafum</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Ashbel Green Simonton Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?ashbel\s?green\s?simonton\s?manuscript\s?collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aagsm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Academy of Homiletics -->
-                    <xsl:when test="matches(mods:note, 'academy\s?of\s?homiletics', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Academy of Homiletics</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aahom</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- The Belle Sparr Luckett Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?belle\s?sparr\s?luckett\s?manuscript\s?collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;abslm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Benson collection of hymnals and hymnology -->
-                    <xsl:when test="matches(mods:note, '^benson\s?collection\s?of\s?hymnals', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;abehy</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Beth Mardutho: The Syriac Institute -->
-                    <xsl:when test="matches(//*[local-name()='collection_set'], '^bethmardutho', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Beth Mardutho: The Syriac Institute</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;abmsi</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Caleb Cook Baldwin Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^caleb\s?cook\s?baldwin\s?manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Caleb Cook Baldwin Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;acbam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- David and Jane Wales Trumbull Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^david\s?and\s?jane\s?wales\s?trumbull', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#David and Jane Wales Trumbull Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;adjwt</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>                    
-                    <!-- Earl palmer Collection all files are missing in ptsem_xx.zip ToDo:ask pts  -->
-                    
-                    <!-- Edward Warren Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^edward\s?warren\s?manuscript\s?collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Edward Warren Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aewam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- The George H. Bowen Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?George\s?h\.?\s?bowen\s?manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The George H. Bowen Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aghbm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- The Harry A. Rhodes Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?Harry\s?a\.?\s?rhodes\s?manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Harry A. Rhodes Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aharm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- The James Watt Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?James\s?Watt\s?Manuscript\s?Collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The James Watt Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;ajwam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- John A. Mackay collection -->
-                    <xsl:when test="matches(mods:note, '^John\s?A\.\s?Mackay\s?Collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#John A. Mackay collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;ajamc</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Langley Kitching South Africa/Madagascar Collection -->
-                    <xsl:when test="matches(mods:note, '^Langley\s?Kitching\s?South\s?Africa', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Langley Kitching South Africa/Madagascar Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;alksm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Latin America Collection selection criteria is still unknown maybe <namePart>Henry Luce Foundation</namePart>-->
-                    
-                    <!-- Levi Janvier Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^Levi\s?Janvier\s?Manuscript\s?Collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Levi Janvier Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aljam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Michael S. Culbertson Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^Michael\s?S\.\s?Culbertson\s?Manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Michael S. Culbertson Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;amcum</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Missio Seminary Collection -->
-                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^Missio\s?Seminary', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Missio Seminary Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;amise</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Moffett Korea Collection -->
-                    <xsl:when test="matches(mods:note, '^moffett\s?korea\s?collection', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Moffett Korea Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;amoko</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- MRL Pamplhlets selection criteria not defined ToDo:MAYBE with <namePart>-->
-                    <!-- Payne Seminary/AME Archive ToDo:Check if <namePart> -->
-                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^African\s?Methodist\s?Episcopal\s?Church', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;apsam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Payne Seminary/AME Archive ToDo:Check if <namePart> -->
-                    <xsl:when test="matches(mods:name[@type='corporate']/mods:namePart, '^African\s?Methodist\s?Episcopal\s?Church', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;apsam</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- PTS Journals ToDo:criteria unkown -->
-                    <!-- PTS Media Archive ToDo:criteria unkown -->
-                    <!-- Robert Elliott Speer Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^Robert\s?Elliott\s?Speer\s?Manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Elliott Speer Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;aresm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Robert Hamill Nassau Manuscript Collection -->
-                    <xsl:when test="matches(mods:note, '^Robert\s?Hamill\s?Nassau\s?Manuscript', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Hamill Nassau Manuscript Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;arhnm</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- The Scott Family  Collection -->
-                    <xsl:when test="matches(mods:note, '^the\s?Scott\s?Family', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Scott Family Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;asfco</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Seminario Evangélico P.R. all files are missing in ptsem_xx.zip ToDo:ask pts-->
-                    <!-- Sheldon Jackson Collection ToDo:criteria unkown -->
-                    <!-- Thomas F. Torrance Collection -->
-                    <xsl:when test="matches(mods:note, '^Thomas\s?F\.\s?Torrance\sCollection?', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Thomas F. Torrance Collection</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;atftc</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
-                    <!-- Tanis Postcards Collection ToDo:mods:name[@type='personal'] "James R. Tanis" AND mods:physicalDescription/mods:form[@authority='local'] = "Postcard"-->
-                    <!-- Weld Missionary Papers -->
-                    <xsl:when test="matches(mods:note, '^William\s?E\.\s?and\s?Margaret\s?E\.\s?Weld', 'i')">
-                        <datafield tag="866" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Weld Missionary Papers</xsl:text>                          
-                            </subfield>
-                        </datafield>
-                        <datafield tag="935" ind1=" " ind2=" ">
-                            <subfield code="a">
-                                <xsl:text>PRTC&amp;awemi</xsl:text>
-                            </subfield>
-                            <subfield code="2">
-                                <xsl:text>LOK</xsl:text>
-                            </subfield>
-                        </datafield>
-                    </xsl:when>
 			</record>
 		</collection>
 	</xsl:template>
@@ -1008,6 +596,20 @@
     <xsl:template match="*"/>
 
 <!-- Title Info elements -->
+	<xsl:template match="mods:titleInfo[not(ancestor-or-self::mods:subject)][not(@type)][1]">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">245</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
+			<xsl:with-param name="ind2" select="string-length(mods:nonSort)"/>
+			<xsl:with-param name="subfields">
+				<xsl:call-template name="titleInfo"/>
+				<!-- 1/04 fix -->
+				<xsl:call-template name="stmtOfResponsibility"/>
+				<xsl:call-template name="form"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
 	<xsl:template match="mods:titleInfo[@type='abbreviated']">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">210</xsl:with-param>
@@ -1017,7 +619,28 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	
+
+	<xsl:template match="mods:titleInfo[@type='translated']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">242</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
+			<xsl:with-param name="ind2" select="string-length(mods:nonSort)"/>
+			<xsl:with-param name="subfields">
+				<xsl:call-template name="titleInfo"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+	<xsl:template match="mods:titleInfo[@type='alternative']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">246</xsl:with-param>
+			<xsl:with-param name="ind1">3</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<xsl:call-template name="titleInfo"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
 	<xsl:template match="mods:titleInfo[@type='uniform'][1]">
 		<xsl:choose>
 			<!-- v3 role -->
@@ -1043,51 +666,6 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="mods:titleInfo[@type='translated']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">242</xsl:with-param>
-			<xsl:with-param name="ind1">1</xsl:with-param>
-			<xsl:with-param name="ind2" select="string-length(mods:nonSort)"/>
-			<xsl:with-param name="subfields">
-				<xsl:call-template name="titleInfo"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template match="mods:titleInfo[not(ancestor-or-self::mods:subject)][not(@type)][1]">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">245</xsl:with-param>
-			<xsl:with-param name="ind1">1</xsl:with-param>
-			<xsl:with-param name="ind2" select="string-length(mods:nonSort)"/>
-			<xsl:with-param name="subfields">
-				<xsl:call-template name="titleInfo"/>
-				<!-- 1/04 fix -->
-				<xsl:call-template name="stmtOfResponsibility"/>
-				<xsl:call-template name="form"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="mods:titleInfo[@type='alternative']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">246</xsl:with-param>
-			<xsl:with-param name="ind1">3</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<xsl:call-template name="titleInfo"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template match="mods:titleInfo[not(ancestor-or-self::mods:subject)][not(@type)][position()>1]">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">246</xsl:with-param>
-			<xsl:with-param name="ind1">3</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<xsl:call-template name="titleInfo"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
 	<!-- 1/04 fix: 2nd uniform title to 730 -->
 	<xsl:template match="mods:titleInfo[@type='uniform'][position()>1]">
 		<xsl:call-template name="datafield">
@@ -1100,6 +678,15 @@
 	</xsl:template>
 	<!-- 1/04 fix -->
 
+	<xsl:template match="mods:titleInfo[not(ancestor-or-self::mods:subject)][not(@type)][position()>1]">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">246</xsl:with-param>
+			<xsl:with-param name="ind1">3</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<xsl:call-template name="titleInfo"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
 
 <!-- Name elements -->
 	<!-- v3 role-->
@@ -1340,29 +927,6 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	
-	<!-- ubtue:manual additions for physicalDescription-->
-	<xsl:template match="mods:physicalDescription/mods:form[@authority='local']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">650</xsl:with-param>
-			<xsl:with-param name="ind2">4</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code='a'>
-					<xsl:text>|f|</xsl:text><xsl:value-of select="."/>
-				</subfield>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<!-- 650 MARC from MODS data [besser als Lokales Schlagwort im Exemplardaten?]-->
-	<xsl:template match="//*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']">
-		<datafield tag="650" ind1=" " ind2="4">
-			<subfield code="a">
-				<xsl:value-of select="concat('|f|', //*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']/text())"/>
-			</subfield>
-		</datafield>
-	</xsl:template>
-	
 	<!-- Genre elements -->
 	<!-- 2.01 -->
 	<xsl:template match="mods:genre[@authority!='marcgt' or not(@authority)]">
@@ -1422,6 +986,28 @@
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<!-- ubtue:manual additions for physicalDescription-->
+	<xsl:template match="mods:physicalDescription/mods:form[@authority='local']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">650</xsl:with-param>
+			<xsl:with-param name="ind2">4</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code='a'>
+					<xsl:text>|f|</xsl:text><xsl:value-of select="."/>
+				</subfield>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<!-- 650 MARC from MODS data [besser als Lokales Schlagwort im Exemplardaten?]-->
+	<xsl:template match="//*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']">
+		<datafield tag="650" ind1=" " ind2="4">
+			<subfield code="a">
+				<xsl:value-of select="concat('|f|', //*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']/text())"/>
+			</subfield>
+		</datafield>
 	</xsl:template>
 	
 	<!-- ubtue: remove linebreak-->
@@ -1753,7 +1339,91 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	<!-- Note -->
+
+<!-- Abstract -->
+	<xsl:template match="mods:abstract">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">520</xsl:with-param>
+			<xsl:with-param name="ind1">
+			<!-- v3.4 added values for ind1 based on displayLabel -->
+				<xsl:choose>
+					<xsl:when test="@displayLabel='Subject'">0</xsl:when>
+					<xsl:when test="@displayLabel='Review'">1</xsl:when>
+					<xsl:when test="@displayLabel='Scope and content'">2</xsl:when>
+					<xsl:when test="@displayLabel='Abstract'">2</xsl:when>
+					<xsl:when test="@displayLabel='Content advice'">4</xsl:when>
+					<xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
+				</xsl:choose>
+			</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="a">
+					<xsl:value-of select="."/>
+				</subfield>
+				<xsl:for-each select="@xlink:href">
+					<subfield code="u">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+<!-- Table of Contents -->
+	<xsl:template match="mods:tableOfContents">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">505</xsl:with-param>
+			<xsl:with-param name="ind1">
+				<!-- v3.4 added values for ind1 based on displayLabel -->
+				<xsl:choose>
+					<xsl:when test="@displayLabel='Contents'">0</xsl:when>
+					<xsl:when test="@displayLabel='Incomplete contents'">1</xsl:when>
+					<xsl:when test="@displayLabel='Partial contents'">2</xsl:when>
+					<xsl:otherwise>0</xsl:otherwise>
+				</xsl:choose>
+			</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="a">
+					<xsl:value-of select="."/>
+				</subfield>
+				<xsl:for-each select="@xlink:href">
+					<subfield code="u">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+<!-- Target Audience -->
+	<!-- 1/04 fix -->
+<!--	<xsl:template match="mods:targetAudience">
+		<xsl:apply-templates/>
+	</xsl:template>-->
+
+	<!--<xsl:template match="mods:targetAudience/mods:otherValue"> -->
+	<xsl:template match="mods:targetAudience[not(@authority)] | mods:targetAudience[@authority!='marctarget']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">521</xsl:with-param>
+			<xsl:with-param name="ind1">
+				<!-- v3.4 added values for ind1 based on displayLabel -->
+				<xsl:choose>
+					<xsl:when test="@displayLabel='Reading grade level'">0</xsl:when>
+					<xsl:when test="@displayLabel='Interest age level'">1</xsl:when>
+					<xsl:when test="@displayLabel='Interest grade level'">2</xsl:when>
+					<xsl:when test="@displayLabel='Special audience characteristics'">3</xsl:when>
+					<xsl:when test="@displayLabel='Motivation or interest level'">3</xsl:when>
+					<xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
+				</xsl:choose>
+			</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code='a'>
+					<xsl:value-of select="."/>
+				</subfield>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+<!-- Note -->
 	<!-- 1/04 fix -->
 	<xsl:template match="mods:note[not(@type='statement of responsibility')]">
 		<xsl:call-template name="datafield">
@@ -1787,88 +1457,6 @@
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
-	<!-- Table of Contents -->
-	<xsl:template match="mods:tableOfContents">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">505</xsl:with-param>
-			<xsl:with-param name="ind1">
-				<!-- v3.4 added values for ind1 based on displayLabel -->
-				<xsl:choose>
-					<xsl:when test="@displayLabel='Contents'">0</xsl:when>
-					<xsl:when test="@displayLabel='Incomplete contents'">1</xsl:when>
-					<xsl:when test="@displayLabel='Partial contents'">2</xsl:when>
-					<xsl:otherwise>0</xsl:otherwise>
-				</xsl:choose>
-			</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="a">
-					<xsl:value-of select="."/>
-				</subfield>
-				<xsl:for-each select="@xlink:href">
-					<subfield code="u">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	<!-- Abstract -->
-	<xsl:template match="mods:abstract">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">520</xsl:with-param>
-			<xsl:with-param name="ind1">
-				<!-- v3.4 added values for ind1 based on displayLabel -->
-				<xsl:choose>
-					<xsl:when test="@displayLabel='Subject'">0</xsl:when>
-					<xsl:when test="@displayLabel='Review'">1</xsl:when>
-					<xsl:when test="@displayLabel='Scope and content'">2</xsl:when>
-					<xsl:when test="@displayLabel='Abstract'">2</xsl:when>
-					<xsl:when test="@displayLabel='Content advice'">4</xsl:when>
-					<xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
-				</xsl:choose>
-			</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="a">
-					<xsl:value-of select="."/>
-				</subfield>
-				<xsl:for-each select="@xlink:href">
-					<subfield code="u">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-<!-- Target Audience -->
-	<!-- 1/04 fix -->
-<!--	<xsl:template match="mods:targetAudience">
-		<xsl:apply-templates/>
-	</xsl:template>-->
-
-	<!--<xsl:template match="mods:targetAudience/mods:otherValue"> -->
-	<xsl:template match="mods:targetAudience[not(@authority)] | mods:targetAudience[@authority!='marctarget']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">521</xsl:with-param>
-			<xsl:with-param name="ind1">
-				<!-- v3.4 added values for ind1 based on displayLabel -->
-				<xsl:choose>
-					<xsl:when test="@displayLabel='Reading grade level'">0</xsl:when>
-					<xsl:when test="@displayLabel='Interest age level'">1</xsl:when>
-					<xsl:when test="@displayLabel='Interest grade level'">2</xsl:when>
-					<xsl:when test="@displayLabel='Special audience characteristics'">3</xsl:when>
-					<xsl:when test="@displayLabel='Motivation or interest level'">3</xsl:when>
-					<xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise>
-				</xsl:choose>
-			</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code='a'>
-					<xsl:value-of select="."/>
-				</subfield>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-
-	
 
 	<!-- 1/04 fix -->
 	<!--<xsl:template match="mods:note[@type='statement of responsibility']">
@@ -1925,51 +1513,38 @@
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
-	<!-- v3 geographicCode -->
-	<xsl:template match="mods:subject/mods:geographicCode[@authority]">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">043</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<xsl:for-each select="self::mods:geographicCode[@authority='marcgac']">
-					<subfield code='a'>
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-				<xsl:for-each select="self::mods:geographicCode[@authority='iso3166']">
-					<subfield code='c'>
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="mods:subject/mods:cartographics">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">255</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<xsl:for-each select="mods:coordinates">
-					<subfield code="c">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-				<xsl:for-each select="mods:scale">
-					<subfield code="a">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-				<xsl:for-each select="mods:projection">
-					<subfield code="b">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
+
 	<!-- v3 authority -->
 
 	<xsl:template match="mods:subject">
 		<xsl:apply-templates/>
+	</xsl:template>
+
+	<xsl:template match="mods:subject[local-name(*[1])='topic']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">650</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="a">
+					<xsl:value-of select="*[1]"/>
+				</subfield>
+				<xsl:apply-templates select="*[position()>1]"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template match="mods:subject[local-name(*[1])='titleInfo']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">630</xsl:with-param>
+			<xsl:with-param name="ind1"><xsl:value-of select="string-length(mods:titleInfo/mods:nonSort)"/></xsl:with-param>
+			<xsl:with-param name="ind2"><xsl:call-template name="authorityInd"/></xsl:with-param>
+			<xsl:with-param name="subfields">
+				<xsl:for-each select="mods:titleInfo">
+					<xsl:call-template name="titleInfo"/>
+				</xsl:for-each>
+				<xsl:apply-templates select="*[position()>1]"/>
+			</xsl:with-param>
+		</xsl:call-template>
+
 	</xsl:template>
 
 	<xsl:template match="mods:subject[local-name(*[1])='name']">
@@ -2041,7 +1616,7 @@
 							</xsl:for-each>
 							<!--<xsl:apply-templates select="*[position()>1]"/>-->
 							<xsl:apply-templates select="ancestor-or-self::mods:subject/*[position()>1]"/>
-							
+
 						</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
@@ -2075,33 +1650,6 @@
 			</xsl:choose>
 		</xsl:for-each>
 	</xsl:template>
-	
-	<xsl:template match="mods:subject[local-name(*[1])='topic']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">650</xsl:with-param>
-			<xsl:with-param name="ind1">1</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="a">
-					<xsl:value-of select="*[1]"/>
-				</subfield>
-				<xsl:apply-templates select="*[position()>1]"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="mods:subject[local-name(*[1])='titleInfo']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">630</xsl:with-param>
-			<xsl:with-param name="ind1"><xsl:value-of select="string-length(mods:titleInfo/mods:nonSort)"/></xsl:with-param>
-			<xsl:with-param name="ind2"><xsl:call-template name="authorityInd"/></xsl:with-param>
-			<xsl:with-param name="subfields">
-				<xsl:for-each select="mods:titleInfo">
-					<xsl:call-template name="titleInfo"/>
-				</xsl:for-each>
-				<xsl:apply-templates select="*[position()>1]"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
 
 	<xsl:template match="mods:subject[local-name(*[1])='geographic']">
 		<xsl:call-template name="datafield">
@@ -2127,18 +1675,38 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	
-	<xsl:template match="mods:subject[local-name(*[1])='genre']">
+
+    <xsl:template match="mods:subject[local-name(*[1])='genre']">
+        <xsl:call-template name="datafield">
+            <xsl:with-param name="tag">655</xsl:with-param>
+            <xsl:with-param name="subfields">
+                <subfield code="a">
+                    <xsl:value-of select="*[1]"/>
+                </subfield>
+                <xsl:apply-templates select="*[position()>1]"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+
+	<!-- v3 geographicCode -->
+	<xsl:template match="mods:subject/mods:geographicCode[@authority]">
 		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">655</xsl:with-param>
+			<xsl:with-param name="tag">043</xsl:with-param>
 			<xsl:with-param name="subfields">
-				<subfield code="a">
-					<xsl:value-of select="*[1]"/>
-				</subfield>
-				<xsl:apply-templates select="*[position()>1]"/>
+				<xsl:for-each select="self::mods:geographicCode[@authority='marcgac']">
+					<subfield code='a'>
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+				<xsl:for-each select="self::mods:geographicCode[@authority='iso3166']">
+					<subfield code='c'>
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+
 	<!-- 1/04 fix was 630 -->
 	<!-- 3.02  -->
 	<xsl:template match="mods:subject/mods:hierarchicalGeographic">
@@ -2172,6 +1740,29 @@
 				</xsl:for-each>
 				<xsl:for-each select="mods:extraterrestrialArea">
 					<subfield code="h">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+	<xsl:template match="mods:subject/mods:cartographics">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">255</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<xsl:for-each select="mods:coordinates">
+					<subfield code="c">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+				<xsl:for-each select="mods:scale">
+					<subfield code="a">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+				<xsl:for-each select="mods:projection">
+					<subfield code="b">
 						<xsl:value-of select="."/>
 					</subfield>
 				</xsl:for-each>
@@ -2542,7 +2133,44 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-	
+	<xsl:template match="mods:identifier[@type='uri']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">856</xsl:with-param>
+			<xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="u">
+					<xsl:value-of select="."/>
+				</subfield>
+				<xsl:call-template name="mediaType"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<!--v3 location/url -->
+	<!-- 2.01 -->
+	<xsl:template match="mods:location/mods:url">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">856</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="u">
+					<xsl:value-of select="."/>
+				</subfield>
+				<subfield code="z">
+					<xsl:text>LF</xsl:text>
+				</subfield>
+				<!-- v3 displayLabel -->
+				<xsl:for-each select="@displayLabel">
+					<subfield code="3">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+				<xsl:for-each select="@dateLastAccessed">
+					<subfield code="z">
+						<xsl:value-of select="concat('Last accessed: ',.)"/>
+					</subfield>
+				</xsl:for-each>
+			</xsl:with-param>
+			</xsl:call-template>
+	</xsl:template>
 	<xsl:template match="mods:identifier[@type='upc']">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">024</xsl:with-param>
@@ -2586,7 +2214,94 @@
 			<xsl:otherwise><xsl:text> </xsl:text></xsl:otherwise><!-- v3 blank ind2 fix-->
 		</xsl:choose>
 	</xsl:template>
-	
+
+	<xsl:template match="mods:relatedItem/mods:identifier[@type='uri']">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">856</xsl:with-param>
+			<xsl:with-param name="ind2">2</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="u">
+					<xsl:value-of select="."/>
+				</subfield>
+				<xsl:call-template name="mediaType"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+	<!-- v3 physicalLocation -->
+	<!-- 2.01 -->
+	<!-- unescape 852 should be local 852 -->
+	<!--<xsl:template match="mods:location/mods:physicalLocation">
+			<xsl:call-template name="datafield">
+				<xsl:with-param name="tag">852</xsl:with-param>
+				<xsl:with-param name="subfields">
+					<subfield code="a">
+						<xsl:value-of select="."/>
+					</subfield>
+					<xsl:if test="@xlink">
+						<subfield code="u">
+							<xsl:value-of select="."/>
+						</subfield>
+					</xsl:if>-->
+					<!-- v3 displayLabel 
+					<xsl:for-each select="@displayLabel">
+						<subfield code="3">
+							<xsl:value-of select="."/>
+						</subfield>
+					</xsl:for-each>
+				</xsl:with-param>
+			</xsl:call-template>
+	</xsl:template>-->
+	<!-- 2.01 -->
+<!-- v3.4 add physical location url
+	<xsl:template match="mods:location/mods:physicalLocation[@xlink]">
+		<xsl:for-each select="mods:physicalLocation">
+			<xsl:call-template name="datafield">
+				<xsl:with-param name="tag">852</xsl:with-param>
+				<xsl:with-param name="subfields">
+					<subfield code="u">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	-->
+	<!-- v3.4 location url -->
+	<!-- 2.01 -->
+	<xsl:template match="mods:location/mods:uri">
+			<xsl:call-template name="datafield">
+				<xsl:with-param name="tag">852</xsl:with-param>
+				<xsl:with-param name="subfields">
+					<subfield>
+						<xsl:choose>
+							<xsl:when test="@displayLabel='content'">3</xsl:when>
+							<xsl:when test="@dateLastAccessed='content'">z</xsl:when>
+							<xsl:when test="@note='contents of subfield'">z</xsl:when>
+							<xsl:when test="@access='preview'">3</xsl:when>
+							<xsl:when test="@access='raw object'">3</xsl:when>
+							<xsl:when test="@access='object in context'">3</xsl:when>
+							<xsl:when test="@access='primary display'">z</xsl:when>
+						</xsl:choose>
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:with-param>
+			</xsl:call-template>
+	</xsl:template>
+
+	<!-- 1/04 fix -->
+	<!--<xsl:template match="mods:internetMediaType">
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">856</xsl:with-param>
+			<xsl:with-param name="ind2">2</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="q">
+					<xsl:value-of select="."/>
+				</subfield>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>	-->
+
 	<xsl:template name="mediaType">
 		<xsl:if test="../mods:physicalDescription/mods:internetMediaType">
 			<subfield code="q">
@@ -2620,6 +2335,96 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+
+	<xsl:template match="mods:relatedItem[@type='series']">
+		<!-- 3.02 -->
+		<xsl:choose>
+			<xsl:when test="not(mods:name) and mods:titleInfo">
+				<xsl:for-each select="mods:titleInfo">
+					<xsl:call-template name="datafield">
+						<xsl:with-param name="tag">830</xsl:with-param>
+						<xsl:with-param name="subfields">
+							<xsl:call-template name="titleInfo"/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="mods:name">
+					<xsl:variable name="tagValue">
+						<xsl:choose>
+							<xsl:when test="@type='personal'">800</xsl:when>
+							<xsl:when test="@type='corporate'">810</xsl:when>
+							<xsl:when test="@type='conference'">811</xsl:when>
+							<xsl:otherwise>830</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:call-template name="datafield">
+						<xsl:with-param name="tag" select="$tagValue"/>
+						<xsl:with-param name="subfields">
+							<subfield code="a">
+								<!-- 2.02 -->
+								<xsl:value-of select="mods:namePart[1]"/>
+							</subfield>
+							<xsl:if test="@type='corporate'">
+								<xsl:for-each select="mods:namePart[position()>1]">
+									<subfield code="b">
+										<xsl:value-of select="."/>
+									</subfield>
+								</xsl:for-each>
+							</xsl:if>
+							<xsl:if test="@type='personal'">
+								<xsl:for-each select="mods:namePart[@type='termsOfAddress']">
+									<subfield code="c">
+										<xsl:value-of select="."/>
+									</subfield>
+								</xsl:for-each>
+								<xsl:for-each select="mods:namePart[@type='date']">
+									<!-- v3 namepart/date was $a; fixed to $d -->
+									<subfield code="d">
+										<xsl:value-of select="."/>
+									</subfield>
+								</xsl:for-each>
+							</xsl:if>
+							<!-- v3 role -->
+							<xsl:if test="@type!='conference'">
+								<xsl:for-each select="mods:role/mods:roleTerm[@type='text']">
+									<subfield code="e">
+										<xsl:value-of select="."/>
+									</subfield>
+								</xsl:for-each>
+							</xsl:if>
+							<xsl:for-each select="mods:role/mods:roleTerm[@type='code']">
+								<subfield code="4">
+									<xsl:value-of select="."/>
+								</subfield>
+							</xsl:for-each>
+							<xsl:if test="$tagValue != '830' and ../mods:titleInfo">
+								<xsl:for-each select="../mods:titleInfo">
+									<xsl:for-each select="mods:title">
+										<subfield code="t">
+											<xsl:value-of select="../mods:nonSort"/><xsl:value-of select="."/><xsl:value-of select="../mods:subTitle"/>
+										</subfield>
+									</xsl:for-each>
+									<xsl:for-each select="mods:partNumber">
+										<subfield code="n">
+											<xsl:value-of select="."/>
+										</subfield>
+									</xsl:for-each>
+									<xsl:for-each select="mods:partName">
+										<subfield code="p">
+											<xsl:value-of select="."/>
+										</subfield>
+									</xsl:for-each>
+								</xsl:for-each>
+							</xsl:if>
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 
 	<xsl:template match="mods:relatedItem[not(@type)]">
 	<!-- v3 was type="related" -->
@@ -2863,219 +2668,8 @@
 			</subfield>
 		</xsl:if>
 	</xsl:template>
-	
-	<xsl:template match="mods:relatedItem[@type='series']">
-		<!-- 3.02 -->
-		<xsl:choose>
-			<xsl:when test="not(mods:name) and mods:titleInfo">
-				<xsl:for-each select="mods:titleInfo">
-					<xsl:call-template name="datafield">
-						<xsl:with-param name="tag">830</xsl:with-param>
-						<xsl:with-param name="subfields">
-							<xsl:call-template name="titleInfo"/>
-						</xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:for-each select="mods:name">
-					<xsl:variable name="tagValue">
-						<xsl:choose>
-							<xsl:when test="@type='personal'">800</xsl:when>
-							<xsl:when test="@type='corporate'">810</xsl:when>
-							<xsl:when test="@type='conference'">811</xsl:when>
-							<xsl:otherwise>830</xsl:otherwise>
-						</xsl:choose>
-					</xsl:variable>
-					<xsl:call-template name="datafield">
-						<xsl:with-param name="tag" select="$tagValue"/>
-						<xsl:with-param name="subfields">
-							<subfield code="a">
-								<!-- 2.02 -->
-								<xsl:value-of select="mods:namePart[1]"/>
-							</subfield>
-							<xsl:if test="@type='corporate'">
-								<xsl:for-each select="mods:namePart[position()>1]">
-									<subfield code="b">
-										<xsl:value-of select="."/>
-									</subfield>
-								</xsl:for-each>
-							</xsl:if>
-							<xsl:if test="@type='personal'">
-								<xsl:for-each select="mods:namePart[@type='termsOfAddress']">
-									<subfield code="c">
-										<xsl:value-of select="."/>
-									</subfield>
-								</xsl:for-each>
-								<xsl:for-each select="mods:namePart[@type='date']">
-									<!-- v3 namepart/date was $a; fixed to $d -->
-									<subfield code="d">
-										<xsl:value-of select="."/>
-									</subfield>
-								</xsl:for-each>
-							</xsl:if>
-							<!-- v3 role -->
-							<xsl:if test="@type!='conference'">
-								<xsl:for-each select="mods:role/mods:roleTerm[@type='text']">
-									<subfield code="e">
-										<xsl:value-of select="."/>
-									</subfield>
-								</xsl:for-each>
-							</xsl:if>
-							<xsl:for-each select="mods:role/mods:roleTerm[@type='code']">
-								<subfield code="4">
-									<xsl:value-of select="."/>
-								</subfield>
-							</xsl:for-each>
-							<xsl:if test="$tagValue != '830' and ../mods:titleInfo">
-								<xsl:for-each select="../mods:titleInfo">
-									<xsl:for-each select="mods:title">
-										<subfield code="t">
-											<xsl:value-of select="../mods:nonSort"/><xsl:value-of select="."/><xsl:value-of select="../mods:subTitle"/>
-										</subfield>
-									</xsl:for-each>
-									<xsl:for-each select="mods:partNumber">
-										<subfield code="n">
-											<xsl:value-of select="."/>
-										</subfield>
-									</xsl:for-each>
-									<xsl:for-each select="mods:partName">
-										<subfield code="p">
-											<xsl:value-of select="."/>
-										</subfield>
-									</xsl:for-each>
-								</xsl:for-each>
-							</xsl:if>
-						</xsl:with-param>
-					</xsl:call-template>
-				</xsl:for-each>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	<!-- v3 physicalLocation -->
-	<!-- 2.01 -->
-	<!-- unescape 852 should be local 852 -->
-	<!--<xsl:template match="mods:location/mods:physicalLocation">
-			<xsl:call-template name="datafield">
-				<xsl:with-param name="tag">852</xsl:with-param>
-				<xsl:with-param name="subfields">
-					<subfield code="a">
-						<xsl:value-of select="."/>
-					</subfield>
-					<xsl:if test="@xlink">
-						<subfield code="u">
-							<xsl:value-of select="."/>
-						</subfield>
-					</xsl:if>-->
-	<!-- v3 displayLabel 
-					<xsl:for-each select="@displayLabel">
-						<subfield code="3">
-							<xsl:value-of select="."/>
-						</subfield>
-					</xsl:for-each>
-				</xsl:with-param>
-			</xsl:call-template>
-	</xsl:template>-->
-	<!-- 2.01 -->
-	<!-- v3.4 add physical location url
-	<xsl:template match="mods:location/mods:physicalLocation[@xlink]">
-		<xsl:for-each select="mods:physicalLocation">
-			<xsl:call-template name="datafield">
-				<xsl:with-param name="tag">852</xsl:with-param>
-				<xsl:with-param name="subfields">
-					<subfield code="u">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:with-param>
-			</xsl:call-template>
-		</xsl:for-each>
-	</xsl:template>
-	-->
-	<!-- v3.4 location url -->
-	<!-- 2.01 -->
-	<xsl:template match="mods:location/mods:uri">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">852</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield>
-					<xsl:choose>
-						<xsl:when test="@displayLabel='content'">3</xsl:when>
-						<xsl:when test="@dateLastAccessed='content'">z</xsl:when>
-						<xsl:when test="@note='contents of subfield'">z</xsl:when>
-						<xsl:when test="@access='preview'">3</xsl:when>
-						<xsl:when test="@access='raw object'">3</xsl:when>
-						<xsl:when test="@access='object in context'">3</xsl:when>
-						<xsl:when test="@access='primary display'">z</xsl:when>
-					</xsl:choose>
-					<xsl:value-of select="."/>
-				</subfield>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<!-- 1/04 fix -->
-	<!--<xsl:template match="mods:internetMediaType">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">856</xsl:with-param>
-			<xsl:with-param name="ind2">2</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="q">
-					<xsl:value-of select="."/>
-				</subfield>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>	-->
-	<xsl:template match="mods:identifier[@type='uri']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">856</xsl:with-param>
-			<xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="u">
-					<xsl:value-of select="."/>
-				</subfield>
-				<xsl:call-template name="mediaType"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	<!--v3 location/url -->
-	<!-- 2.01 -->
-	<xsl:template match="mods:location/mods:url">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">856</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="u">
-					<xsl:value-of select="."/>
-				</subfield>
-				<subfield code="z">
-					<xsl:text>LF</xsl:text>
-				</subfield>
-				<!-- v3 displayLabel -->
-				<xsl:for-each select="@displayLabel">
-					<subfield code="3">
-						<xsl:value-of select="."/>
-					</subfield>
-				</xsl:for-each>
-				<xsl:for-each select="@dateLastAccessed">
-					<subfield code="z">
-						<xsl:value-of select="concat('Last accessed: ',.)"/>
-					</subfield>
-				</xsl:for-each>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	<xsl:template match="mods:relatedItem/mods:identifier[@type='uri']">
-		<xsl:call-template name="datafield">
-			<xsl:with-param name="tag">856</xsl:with-param>
-			<xsl:with-param name="ind2">2</xsl:with-param>
-			<xsl:with-param name="subfields">
-				<subfield code="u">
-					<xsl:value-of select="."/>
-				</subfield>
-				<xsl:call-template name="mediaType"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
+
+
 	<!-- v3 not used?
 		<xsl:variable name="leader06">
 			<xsl:choose>
@@ -3106,5 +2700,5 @@
 			</xsl:choose>
 		</xsl:variable>
 -->
-	
+
 </xsl:stylesheet>
