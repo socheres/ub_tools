@@ -350,7 +350,7 @@
                 <xsl:if test="//*[@tag='260']">
                     <xsl:for-each select="//*[@tag='260'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
-                            <xsl:with-param name="tag">264</xsl:with-param>
+                            <xsl:with-param name="tag">260</xsl:with-param>
                             <xsl:with-param name="ind1"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="ind2"><xsl:text> </xsl:text></xsl:with-param>
                             <xsl:with-param name="subfields">
