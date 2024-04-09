@@ -600,7 +600,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aafum</xsl:text>
+                                <xsl:text>PRTC$aafum</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -616,7 +616,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aagsm</xsl:text>
+                                <xsl:text>PRTC$aagsm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -632,7 +632,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aahom</xsl:text>
+                                <xsl:text>PRTC$aahom</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -648,7 +648,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;abslm</xsl:text>
+                                <xsl:text>PRTC$abslm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -664,7 +664,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;abehy</xsl:text>
+                                <xsl:text>PRTC$abehy</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -680,7 +680,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;abmsi</xsl:text>
+                                <xsl:text>PRTC$abmsi</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -696,7 +696,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;acbam</xsl:text>
+                                <xsl:text>PRTC$acbam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -712,7 +712,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;adjwt</xsl:text>
+                                <xsl:text>PRTC$adjwt</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -730,7 +730,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aewam</xsl:text>
+                                <xsl:text>PRTC$aewam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -746,7 +746,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aghbm</xsl:text>
+                                <xsl:text>PRTC$aghbm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -762,7 +762,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aharm</xsl:text>
+                                <xsl:text>PRTC$aharm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -778,7 +778,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;ajwam</xsl:text>
+                                <xsl:text>PRTC$ajwam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -794,7 +794,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;ajamc</xsl:text>
+                                <xsl:text>PRTC$ajamc</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -810,7 +810,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;alksm</xsl:text>
+                                <xsl:text>PRTC$alksm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -828,7 +828,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aljam</xsl:text>
+                                <xsl:text>PRTC$aljam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -844,7 +844,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;amcum</xsl:text>
+                                <xsl:text>PRTC$amcum</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -860,7 +860,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;amise</xsl:text>
+                                <xsl:text>PRTC$amise</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -876,7 +876,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;amoko</xsl:text>
+                                <xsl:text>PRTC$amoko</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -893,7 +893,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;apsam</xsl:text>
+                                <xsl:text>PRTC$apsam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -909,7 +909,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;apsam</xsl:text>
+                                <xsl:text>PRTC$apsam</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -927,7 +927,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;aresm</xsl:text>
+                                <xsl:text>PRTC$aresm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -943,7 +943,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;arhnm</xsl:text>
+                                <xsl:text>PRTC$arhnm</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -959,7 +959,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;asfco</xsl:text>
+                                <xsl:text>PRTC$asfco</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -977,7 +977,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;atftc</xsl:text>
+                                <xsl:text>PRTC$atftc</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -994,7 +994,7 @@
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
-                                <xsl:text>PRTC&amp;awemi</xsl:text>
+                                <xsl:text>PRTC$awemi</xsl:text>
                             </subfield>
                             <subfield code="2">
                                 <xsl:text>LOK</xsl:text>
@@ -1905,7 +1905,7 @@
 	<!-- 1/04 fix -->
 	<xsl:template name="controlRecordInfo">
 	<!--<xsl:template match="mods:recordInfo">-->
-		<xsl:for-each select="mods:recordInfo/mods:recordIdentifier">
+		<xsl:for-each select="mods:identifier">
 			<controlfield tag="001"><xsl:value-of select="."/></controlfield>
 			<xsl:for-each select="@source">
 				<controlfield tag="003"><xsl:value-of select="."/></controlfield>
