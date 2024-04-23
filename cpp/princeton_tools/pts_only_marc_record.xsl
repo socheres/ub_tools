@@ -1335,6 +1335,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Albert Andrew Fulton Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1350,6 +1353,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1367,6 +1373,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Academy of Homiletics</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1382,6 +1391,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1399,6 +1411,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1414,6 +1429,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Beth Mardutho: The Syriac Institute</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1431,6 +1449,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Caleb Cook Baldwin Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1446,6 +1467,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#David and Jane Wales Trumbull Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1465,6 +1489,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Edward Warren Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1480,6 +1507,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The George H. Bowen Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1497,6 +1527,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Harry A. Rhodes Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1512,6 +1545,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The James Watt Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1529,6 +1565,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#John A. Mackay collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1544,6 +1583,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Langley Kitching South Africa/Madagascar Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1563,6 +1605,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Levi Janvier Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1578,6 +1623,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Michael S. Culbertson Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1595,6 +1643,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Missio Seminary Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1610,6 +1661,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Moffett Korea Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1628,6 +1682,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1643,6 +1700,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1662,6 +1722,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Elliott Speer Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1678,6 +1741,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Hamill Nassau Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1693,6 +1759,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Scott Family Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1712,6 +1781,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Thomas F. Torrance Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1728,6 +1800,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Weld Missionary Papers</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1746,6 +1821,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Albert Andrew Fulton Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1761,6 +1839,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1778,6 +1859,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Ashbel Green Simonton Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1794,6 +1878,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Benson collection of hymnals and hymnology</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1809,6 +1896,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#David and Jane Wales Trumbull Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1828,6 +1918,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Edward Warren Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1843,6 +1936,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The George H. Bowen Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1860,6 +1956,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Harry A. Rhodes Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1875,6 +1974,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The James Watt Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1892,6 +1994,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#John A. Mackay collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1907,6 +2012,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Langley Kitching South Africa/Madagascar Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1926,6 +2034,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Levi Janvier Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1941,6 +2052,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Michael S. Culbertson Manuscript Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1958,6 +2072,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Missio Seminary Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -1973,6 +2090,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Moffett Korea Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -1991,6 +2111,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -2006,6 +2129,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Payne Seminary/AME Archive</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -2025,6 +2151,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Elliott Speer Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -2041,6 +2170,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Robert Hamill Nassau Manuscript Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
                             <subfield code="a">
@@ -2056,6 +2188,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#The Scott Family Collection</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
@@ -2075,6 +2210,9 @@
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Thomas F. Torrance Collection</xsl:text>                          
                             </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
                         </datafield>
                     </xsl:when>
                     <!-- Tanis Postcards Collection ToDo:mods:name[@type='personal'] "James R. Tanis" AND mods:physicalDescription/mods:form[@authority='local'] = "Postcard"-->
@@ -2083,6 +2221,9 @@
                         <datafield tag="866" ind1=" " ind2=" ">
                             <subfield code="a">
                                 <xsl:text>SPQUE#Theological Commons Princeton#SPSAM#Weld Missionary Papers</xsl:text>                          
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
                         <datafield tag="935" ind1=" " ind2=" ">
