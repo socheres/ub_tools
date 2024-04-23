@@ -2382,11 +2382,27 @@
                                     <subfield code="a">PRTC</subfield>
                                     <subfield code="2">LOK</subfield>
                                 </datafield>
+                                <datafield tag="866" ind1=" " ind2=" ">
+                                    <subfield code="a">
+                                        <xsl:text>SPQUE#Theological Commons Princeton</xsl:text>                          
+                                    </subfield>
+                                    <subfield code="2">
+                                        <xsl:text>LOK</xsl:text>
+                                    </subfield>
+                                </datafield>
                             </xsl:when>
                             <xsl:otherwise>
                                 <datafield tag="935" ind1=" " ind2=" ">
                                     <subfield code="a">PRTC</subfield>
                                     <subfield code="2">LOK</subfield>
+                                </datafield>
+                                <datafield tag="866" ind1=" " ind2=" ">
+                                    <subfield code="a">
+                                        <xsl:text>SPQUE#Theological Commons Princeton</xsl:text>                          
+                                    </subfield>
+                                    <subfield code="2">
+                                        <xsl:text>LOK</xsl:text>
+                                    </subfield>
                                 </datafield>
                             </xsl:otherwise>
                         </xsl:choose>
