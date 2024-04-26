@@ -553,9 +553,6 @@
 				<!-- 1/04 fix sort -->
 				<xsl:call-template name="source"/>
 				<xsl:apply-templates/>
-				<datafield tag="500" ind1=" " ind2=" ">
-					<subfield code="a">Converted from MODS 3.7 to MARCXML using pts_only_mods_record.xsl, a modified version of MODS3-7_MARC21slim_XSLT1-0_ubtue.xsl (Based on Revision 3.06 20200514)</subfield>
-				</datafield>
 				<xsl:if test="mods:classification[@authority='lcc']">
 					<xsl:call-template name="lcClassification"/>
 				</xsl:if>
@@ -1586,6 +1583,9 @@
 		<datafield tag="650" ind1=" " ind2="4">
 			<subfield code="a">
 				<xsl:value-of select="concat('|f|', //*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']/text())"/>
+			</subfield>
+			<subfield code="a">
+				<xsl:text>|f|MODS</xsl:text>                          
 			</subfield>
 		</datafield>
 	</xsl:template>
@@ -2730,6 +2730,8 @@
 	<xsl:template match="mods:location/mods:url">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">856</xsl:with-param>
+			<xsl:with-param name="ind1"><xsl:text>4</xsl:text></xsl:with-param>
+			<xsl:with-param name="ind2"><xsl:text>0</xsl:text></xsl:with-param>
 			<xsl:with-param name="subfields">
 				<subfield code="u">
 					<xsl:value-of select="."/>
