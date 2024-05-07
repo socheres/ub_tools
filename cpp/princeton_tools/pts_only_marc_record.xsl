@@ -2349,6 +2349,17 @@
                                 <xsl:text>LOK</xsl:text>
                             </subfield>
                         </datafield>
+                        <datafield tag="935" ind1=" " ind2=" ">
+                            <subfield code="a">
+                                <xsl:text>PRTC</xsl:text>
+                            </subfield>
+                            <subfield code="a">
+                                <xsl:text>tftc</xsl:text>
+                            </subfield>
+                            <subfield code="2">
+                                <xsl:text>LOK</xsl:text>
+                            </subfield>
+                        </datafield>
                     </xsl:when>
                     <!-- Tanis Postcards Collection ToDo:mods:name[@type='personal'] "James R. Tanis" AND mods:physicalDescription/mods:form[@authority='local'] = "Postcard"-->
                     <!-- Weld Missionary Papers -->
