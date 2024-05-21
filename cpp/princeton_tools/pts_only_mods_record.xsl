@@ -582,10 +582,6 @@
 				<datafield tag="912" ind1=" " ind2=" ">
 					<subfield code="a">NOMM</subfield>
 				</datafield>
-				<datafield tag="935" ind1=" " ind2=" ">
-					<subfield code="a">PRTC</subfield>
-					<subfield code="2">LOK</subfield>
-				</datafield>
 				<!-- add collections tags for navigation 866 and Abrufzeichen 935 -->
                 <xsl:choose>
                     <!-- Albert Andrew Fulton Manuscript Collection -->
@@ -1586,6 +1582,9 @@
 			</subfield>
 			<subfield code="a">
 				<xsl:text>|f|MODS</xsl:text>                          
+			</subfield>
+			<subfield code="2">
+				<xsl:text>LOK</xsl:text>
 			</subfield>
 		</datafield>
 	</xsl:template>
