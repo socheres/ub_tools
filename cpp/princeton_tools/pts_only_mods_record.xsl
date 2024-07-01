@@ -1580,9 +1580,6 @@
 			<subfield code="a">
 				<xsl:value-of select="concat('|f|', //*[local-name()='physicalDescription']/*[local-name()='form'][@authority='local']/text())"/>
 			</subfield>
-			<subfield code="a">
-				<xsl:text>|f|MODS</xsl:text>                          
-			</subfield>
 			<subfield code="2">
 				<xsl:text>LOK</xsl:text>
 			</subfield>
@@ -3096,9 +3093,11 @@
 	</xsl:template>
 
 	<xsl:template match="mods:relatedItem[@type='host']">
+		<xsl:variable name="dateIssued" select="../mods:originInfo/mods:dateIssued"/>
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">773</xsl:with-param>
 			<xsl:with-param name="ind1">0</xsl:with-param>
+			<xsl:with-param name="ind2">8</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<!-- v3 displaylabel -->
 				<xsl:for-each select="@displaylabel">
@@ -3112,22 +3111,84 @@
 						<xsl:value-of select="."/>
 					</subfield>
 				</xsl:for-each>
-				<!-- v3 sici part/detail 773$q 	1:2:3<4-->
+				<!-- v3 sici part/detail 773$q 1:2:3<4 -->
 				<xsl:if test="mods:part/mods:detail">
-					<xsl:variable name="parts">
-						<xsl:for-each select="mods:part/mods:detail">
-							<xsl:value-of select="concat(mods:number,':')"/>
-						</xsl:for-each>
-					</xsl:variable>
 					<subfield code="q">
-						<xsl:value-of select="concat(substring($parts,1,string-length($parts)-1),'&lt;',mods:part/mods:extent/mods:start)"/>
+						<xsl:value-of select="concat(
+							mods:part/mods:detail[@type='volume']/mods:number, '(',
+							$dateIssued, '), ',
+							mods:part/mods:detail[@type='issue']/mods:number, ', ',
+							'Seite ', mods:part/mods:extent/mods:start, '-',
+							mods:part/mods:extent/mods:end
+							)"/>
 					</subfield>
 				</xsl:if>
 				<xsl:call-template name="relatedItem76X-78X"/>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-
+	
+	<xsl:template match="mods:relatedItem[@type='host']">
+		<xsl:variable name="dateIssued" select="../mods:originInfo/mods:dateIssued"/>
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">773</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
+			<xsl:with-param name="ind2">8</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<!-- v3 part/text -->
+				<xsl:for-each select="mods:part/mods:text">
+					<subfield code="g">
+						<xsl:value-of select="."/>
+					</subfield>
+				</xsl:for-each>
+				<!-- v3 sici part/detail 773$q 1:2:3<4 -->
+				<xsl:if test="mods:part/mods:detail">
+					<subfield code="q">
+						<xsl:value-of select="concat(
+							mods:part/mods:detail[@type='volume']/mods:number, '(',
+							$dateIssued, '), ',
+							mods:part/mods:detail[@type='issue']/mods:number, ', ',
+							'Seite ', mods:part/mods:extent/mods:start, '-',
+							mods:part/mods:extent/mods:end
+							)"/>
+					</subfield>
+				</xsl:if>
+				<xsl:call-template name="relatedItem76X-78X"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<xsl:template match="mods:relatedItem[@type='host']">
+		<xsl:variable name="dateIssued" select="../mods:originInfo/mods:dateIssued" />
+		<xsl:call-template name="datafield">
+			<xsl:with-param name="tag">773</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
+			<xsl:with-param name="ind2">8</xsl:with-param>
+			<xsl:with-param name="subfields">
+				<subfield code="g">
+					<xsl:text>volume:</xsl:text>
+					<xsl:value-of select="mods:part/mods:detail[@type='volume']/mods:number"/>
+				</subfield>
+				<subfield code="g">
+					<xsl:text>year:</xsl:text>
+					<xsl:value-of select="$dateIssued"/>
+				</subfield>
+				<subfield code="g">
+					<xsl:text>number:</xsl:text>
+					<xsl:value-of select="mods:part/mods:detail[@type='issue']/mods:number"/>
+				</subfield>
+				<subfield code="g">
+					<xsl:text>pages:</xsl:text>
+					<xsl:value-of select="concat(mods:part/mods:extent/mods:start, '-', mods:part/mods:extent/mods:end)"/>
+				</subfield>
+				<xsl:call-template name="relatedItem76X-78X"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	
+	
+	
+	
 	<xsl:template match="mods:relatedItem[@type='constituent']">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">774</xsl:with-param>
@@ -3137,7 +3198,7 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
-
+	
 	<!-- v3 changed this to not@type -->
 	<!--<xsl:template match="mods:relatedItem[@type='related']">
 		<xsl:call-template name="datafield">
