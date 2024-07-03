@@ -3101,13 +3101,14 @@
 		<xsl:variable name="pagesNumberStart" select="mods:part/mods:extent/mods:start"/>
 		<xsl:variable name="pagesNumberEnd" select="mods:part/mods:extent/mods:end"/>
 		<xsl:variable name="concatString">
+			<xsl:if test="$volumeNumber">
+				<xsl:value-of select="$volumeNumber"/>
+			</xsl:if>
+			<xsl:if test="$dateIssued">
 			<xsl:text>(</xsl:text>
 			<xsl:value-of select="$dateIssued"/>
 			<xsl:text>)</xsl:text>
-			<xsl:if test="$volumeNumber">
-				<xsl:text>, </xsl:text>
-				<xsl:value-of select="$volumeNumber"/>
-			</xsl:if>
+			</xsl:if>	
 			<xsl:if test="$issueNumber">
 				<xsl:text>, </xsl:text>
 				<xsl:value-of select="$issueNumber"/>
