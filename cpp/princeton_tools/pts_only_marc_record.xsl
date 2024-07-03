@@ -3475,4 +3475,190 @@
         </xsl:call-template>
     </xsl:template>
     
+    <!-- Journal article 773   -->
+    <xsl:template name="relatedItemNames">
+        <xsl:if test="mods:name">
+            <subfield code="a">
+                <xsl:variable name="nameString">
+                    <xsl:for-each select="mods:name">
+                        <xsl:value-of select="mods:namePart[1][not(@type='date')]"/>
+                        <xsl:if test="mods:namePart[position()&gt;1][@type='date']">
+                            <xsl:value-of select="concat(' ',mods:namePart[position()&gt;1][@type='date'])"/>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="mods:role/mods:roleTerm[@type='text']">
+                                <xsl:value-of select="concat(', ',mods:role/mods:roleTerm)"/>
+                            </xsl:when>
+                            <xsl:when test="mods:role/mods:roleTerm[@type='code']">
+                                <xsl:value-of select="concat(', ',mods:role/mods:roleTerm)"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                    <xsl:text>, </xsl:text>
+                </xsl:variable>
+                <xsl:value-of select="substring($nameString, 1,string-length($nameString)-2)"/>
+            </subfield>
+        </xsl:if>
+    </xsl:template>
+    <!-- Journal article 773   -->
+    <xsl:template name="relatedItem76X-78X">
+        <xsl:for-each select="mods:titleInfo">
+            <!-- 3.02 -->
+            <xsl:for-each select="mods:title">
+                <subfield code="i">
+                    <xsl:text>Enthalten in</xsl:text>
+                </subfield>	
+                <subfield code="t">
+                    <xsl:value-of select="."/>
+                </subfield>
+                <subfield code="h">
+                    <xsl:text>Online-Ressource</xsl:text>
+                </subfield>
+            </xsl:for-each>
+            <xsl:for-each select="mods:partNumber">
+                <subfield code="g">
+                    <xsl:value-of select="."/>
+                </subfield>
+            </xsl:for-each>
+            <xsl:for-each select="mods:partName">
+                <subfield code="g">
+                    <xsl:value-of select="."/>
+                </subfield>
+            </xsl:for-each>
+        </xsl:for-each>
+        <!-- 1/04 fix -->
+        <xsl:call-template name="relatedItemNames"/>
+        <!-- 1/04 fix -->
+        <xsl:choose>
+            <xsl:when test="@type='original'"><!-- 534 -->
+                <xsl:for-each select="mods:physicalDescription/mods:extent">
+                    <subfield code="e">
+                        <xsl:value-of select="."/>
+                    </subfield>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="@type!='original'">
+                <xsl:for-each select="mods:physicalDescription/mods:extent">
+                    <subfield code="h">
+                        <xsl:value-of select="."/>
+                    </subfield>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>
+        <!-- v3 displaylabel -->
+        <xsl:for-each select="@displayLabel">
+            <subfield code="i">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:note">
+            <subfield code="n">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:identifier[not(@type)]">
+            <subfield code="o">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:identifier[@type='issn']">
+            <subfield code="x">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:identifier[@type='isbn']">
+            <subfield code="z">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:identifier[@type='local']">
+            <subfield code="w">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+        <xsl:for-each select="mods:note">
+            <subfield code="n">
+                <xsl:value-of select="."/>
+            </subfield>
+        </xsl:for-each>
+    </xsl:template>
+        
+    <!-- Journal article 773 -->
+    <!-- Template for the first datafield -->
+    <xsl:template match="mods:relatedItem[@type='host'] | mods:relatedItem[@type='series']">
+        <xsl:variable name="dateIssued" select="../mods:originInfo/mods:dateIssued"/>
+        <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+        <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+        <xsl:variable name="pagesNumberStart" select="mods:part/mods:extent/mods:start"/>
+        <xsl:variable name="pagesNumberEnd" select="mods:part/mods:extent/mods:end"/>
+        <xsl:variable name="concatString">
+            <xsl:text>(</xsl:text>
+            <xsl:value-of select="$dateIssued"/>
+            <xsl:text>)</xsl:text>
+            <xsl:if test="$volumeNumber">
+                <xsl:text>, </xsl:text>
+                <xsl:value-of select="$volumeNumber"/>
+            </xsl:if>
+            <xsl:if test="$issueNumber">
+                <xsl:text>, </xsl:text>
+                <xsl:value-of select="$issueNumber"/>
+            </xsl:if>
+            <xsl:if test="$pagesNumberStart or $pagesNumberEnd">
+                <xsl:text>, Seite </xsl:text>
+                <xsl:value-of select="$pagesNumberStart"/>
+                <xsl:if test="$pagesNumberEnd">
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="$pagesNumberEnd"/>
+                </xsl:if>
+            </xsl:if>
+        </xsl:variable>
+        
+        <xsl:call-template name="datafield">
+            <xsl:with-param name="tag">773</xsl:with-param>
+            <xsl:with-param name="ind1">0</xsl:with-param>
+            <xsl:with-param name="ind2">8</xsl:with-param>
+            <xsl:with-param name="subfields">
+                <subfield code="q">
+                    <xsl:value-of select="normalize-space($concatString)"/>
+                </subfield>
+                <xsl:call-template name="relatedItem76X-78X"/>
+            </xsl:with-param>
+        </xsl:call-template>
+        
+        <!-- Journal article 773 -->
+        <!-- Second datafield with multiple subfields -->
+        <xsl:call-template name="datafield">
+            <xsl:with-param name="tag">773</xsl:with-param>
+            <xsl:with-param name="ind1">1</xsl:with-param>
+            <xsl:with-param name="ind2">8</xsl:with-param>
+            <xsl:with-param name="subfields">
+                <xsl:if test="mods:part/mods:detail[@type='volume']/mods:number">
+                    <subfield code="g">
+                        <xsl:text>volume:</xsl:text>
+                        <xsl:value-of select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                    </subfield>
+                </xsl:if>
+                <xsl:if test="$dateIssued">
+                    <subfield code="g">
+                        <xsl:text>year:</xsl:text>
+                        <xsl:value-of select="$dateIssued"/>
+                    </subfield>
+                </xsl:if>
+                <xsl:if test="mods:part/mods:detail[@type='issue']/mods:number">
+                    <subfield code="g">
+                        <xsl:text>number:</xsl:text>
+                        <xsl:value-of select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                    </subfield>
+                </xsl:if>
+                <xsl:if test="mods:part/mods:extent/mods:start">
+                    <subfield code="g">
+                        <xsl:text>pages:</xsl:text>
+                        <xsl:value-of select="concat(mods:part/mods:extent/mods:start, '-', mods:part/mods:extent/mods:end)"/>
+                    </subfield>
+                </xsl:if>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    
+    
 </xsl:stylesheet>
