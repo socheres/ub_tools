@@ -1485,6 +1485,7 @@
 	<xsl:template match="mods:name[not(@type)]">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">100</xsl:with-param>
+			<xsl:with-param name="ind1">1</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<subfield code="a">
 					<!-- 2.02 -->
