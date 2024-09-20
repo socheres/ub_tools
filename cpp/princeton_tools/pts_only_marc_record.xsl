@@ -571,7 +571,7 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
-                </xsl:if>            
+                </xsl:if>
                 <!-- 501 - With Note (R) -->
                 <xsl:if test="//*[@tag='501']">
                     <xsl:for-each select="//*[@tag='501'][local-name(*[1])='subfield']">
@@ -613,6 +613,169 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:for-each>
+                </xsl:if>
+                <!-- 773 08 journal article marc without 773 for mods tags -->
+                <xsl:if test="//*[@tag='503'] | //*[@tag='590'] | //*[@tag='264'] | //*[@tag='260'] and not(mods:physicalDescription/mods:form[@authority='local' and text()='Periodical'])">
+                    <datafield tag="773" ind1="0" ind2="8">
+                        <xsl:variable name="dateIssued" select="//*[@tag='260']/*[@code='c'] | //*[@tag='264']/*[@code='c']"/>
+                        <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                        <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                        <xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>
+
+                        <xsl:variable name="concatString">
+                            <xsl:if test="$volumeNumber">
+                                <xsl:value-of select="$volumeNumber"/>
+                            </xsl:if>
+                            <xsl:if test="$dateIssued">
+                                <xsl:text>(</xsl:text>
+                                <xsl:value-of select="replace($dateIssued, '\.', '')"/>
+                                <xsl:text>)</xsl:text>
+                            </xsl:if>	
+                            <xsl:if test="$issueNumber">
+                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="$issueNumber"/>
+                            </xsl:if>
+                            <xsl:if test="$pagesNumber">
+                                <xsl:text>, Seite </xsl:text>
+                                <xsl:value-of select="replace($pagesNumber, 'p\.|pages', '')"/>
+                            </xsl:if>
+                        </xsl:variable>
+                        <subfield code="q">
+                            <xsl:value-of select="normalize-space($concatString)"/>
+                        </subfield>
+                        <subfield code="i">
+                            <xsl:text>Enthalten in</xsl:text>
+                        </subfield>
+                        <xsl:for-each select="//*[@tag='503']/*[@code='a']  | //*[@tag='590']/*[@code='a'] | //*[@tag='260']/*[@code='b']">
+                            <subfield code="t">
+                                <xsl:value-of select="replace(., '^From:|^From ', '')"/>
+                            </subfield>
+                        </xsl:for-each>
+                        <subfield code="h">
+                            <xsl:text>Online-Ressource</xsl:text>
+                        </subfield>
+                    </datafield>   
+                </xsl:if>
+                <!-- 773 18 journal article marc without 773 for mods tags -->
+                <xsl:if test="//*[@tag='503']  | //*[@tag='590'] | //*[@tag='264'] | //*[@tag='260'] and not(mods:physicalDescription/mods:form[@authority='local' and text()='Periodical'])">
+                    <datafield tag="773" ind1="1" ind2="8">
+                        <xsl:variable name="dateIssued" select="//*[@tag='260']/*[@code='c'] | //*[@tag='264']/*[@code='c']"/>
+                        <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                        <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                        <xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>
+                        
+                        <xsl:if test="mods:part/mods:detail[@type='volume']/mods:number">
+                            <subfield code="g">
+                                <xsl:text>volume:</xsl:text>
+                                <xsl:value-of select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                            </subfield>
+                        </xsl:if>
+                        <xsl:if test="$dateIssued">
+                            <subfield code="g">
+                                <xsl:text>year:</xsl:text>
+                                <xsl:value-of select="replace($dateIssued, '\.', '')"/>
+                            </subfield>
+                        </xsl:if>
+                        <xsl:if test="mods:part/mods:detail[@type='issue']/mods:number">
+                            <subfield code="g">
+                                <xsl:text>number:</xsl:text>
+                                <xsl:value-of select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                            </subfield>
+                        </xsl:if>
+                        <xsl:if test="$pagesNumber">
+                            <subfield code="g">
+                                <xsl:text>pages:</xsl:text>
+                                <xsl:value-of select="replace($pagesNumber, 'p\.', '')"/>
+                            </subfield>
+                        </xsl:if>
+                    </datafield>   
+                </xsl:if>
+                <!-- 773 08 periodical -->
+                <xsl:if test="mods:physicalDescription/mods:form[@authority='local' and text()='Periodical']">
+                    <datafield tag="773" ind1="0" ind2="8">
+                        <!-- -->
+                        <!-- "dateIssued" ass the whole year of the scan-->
+                        <xsl:variable name="dateIssued" select="mods:originInfo/mods:dateIssued"/>
+                        <xsl:variable name="captionYears" select="mods:part/mods:detail[@type='volume']/mods:caption"/>
+                        <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                        <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                        <xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>
+                        
+                        <xsl:variable name="concatString">
+                            <xsl:if test="$volumeNumber">
+                                <xsl:text>Volume </xsl:text>
+                                <xsl:value-of select="$volumeNumber"/>
+                            </xsl:if>
+                            <xsl:if test="$dateIssued">
+                                <xsl:text>(</xsl:text>
+                                <xsl:value-of select="replace($dateIssued, '\.', '')"/>
+                                <xsl:text>)</xsl:text>
+                            </xsl:if>
+                            <xsl:if test="$captionYears">
+                                <xsl:text>(</xsl:text>
+                                <xsl:value-of select="replace($captionYears, '\.', '')"/>
+                                <xsl:text>)</xsl:text>
+                            </xsl:if>
+                            <xsl:if test="$issueNumber">
+                                <xsl:text>, Issue </xsl:text>
+                                <xsl:value-of select="$issueNumber"/>
+                            </xsl:if>
+                            <!--<xsl:if test="$pagesNumber">
+                                <xsl:text>, Seite </xsl:text>
+                                <xsl:value-of select="replace($pagesNumber, 'p\.|pages', '')"/>
+                            </xsl:if>-->
+                        </xsl:variable>
+                        <subfield code="q">
+                            <xsl:value-of select="normalize-space($concatString)"/>
+                        </subfield>
+                        <subfield code="i">
+                            <xsl:text>Sonderdruck aus</xsl:text>
+                        </subfield>
+                        <xsl:for-each select="//*[@tag='245']/*[@code='a']">
+                            <subfield code="t">
+                                <xsl:value-of select="replace(., '^From:|^From ', '')"/>
+                            </subfield>
+                        </xsl:for-each>
+                        <subfield code="h">
+                            <xsl:text>Online-Ressource</xsl:text>
+                        </subfield>
+                    </datafield>   
+                </xsl:if>
+                <!-- 773 18 periodical -->
+                <xsl:if test="mods:physicalDescription/mods:form[@authority='local' and text()='Periodical']">
+                    <datafield tag="773" ind1="1" ind2="8">
+                        <xsl:variable name="dateIssued" select="mods:originInfo/mods:dateIssued"/>
+                        <xsl:variable name="captionYears" select="mods:part/mods:detail[@type='volume']/mods:caption"/>
+                        <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                        <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                        <!--<xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>-->
+                        
+                        <xsl:if test="mods:part/mods:detail[@type='volume']/mods:number">
+                            <subfield code="g">
+                                <xsl:text>volume:</xsl:text>
+                                <xsl:value-of select="mods:part/mods:detail[@type='volume']/mods:number"/>
+                            </subfield>
+                        </xsl:if>
+                        <xsl:if test="$dateIssued">
+                            <subfield code="g">
+                                <xsl:text>year(scan):</xsl:text>
+                                <xsl:value-of select="replace($dateIssued, '\.', '')"/>
+                            </subfield>
+                        </xsl:if>
+                        <xsl:if test="mods:part/mods:detail[@type='issue']/mods:number">
+                            <subfield code="g">
+                                <xsl:text>number:</xsl:text>
+                                <xsl:value-of select="mods:part/mods:detail[@type='issue']/mods:number"/>
+                            </subfield>
+                        </xsl:if>
+                        <!-- skip pages cause pages in periodical are scan pages-->
+                        <!--<xsl:if test="$pagesNumber">
+                            <subfield code="g">
+                                <xsl:text>pages:</xsl:text>
+                                <xsl:value-of select="replace($pagesNumber, 'p\.', '')"/>
+                            </subfield>
+                        </xsl:if>-->
+                    </datafield>   
                 </xsl:if>
                 <!-- 504 - Bibliography, Etc. Note (R) -->
                 <xsl:if test="//*[@tag='504']">
@@ -2419,7 +2582,7 @@
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
-                
+
                 
                 <!-- 876 - Item Information - Basic Bibliographic Unit (R)  -->
                 <xsl:if test="//*[@tag='876']">
@@ -3585,7 +3748,8 @@
         
     <!-- Journal article 773 -->
     <!-- Template for the first datafield -->
-    <xsl:template match="mods:relatedItem[@type='host'] | mods:relatedItem[@type='series']">
+    <xsl:template match="mods:relatedItem[@type='host' or @type='series']">
+        <!--<xsl:template match="mods:relatedItem[@type='host'] | mods:relatedItem[@type='series']">-->
         <xsl:variable name="dateIssued" select="../mods:originInfo/mods:dateIssued"/>
         <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
         <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
