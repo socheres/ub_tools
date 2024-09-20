@@ -702,11 +702,11 @@
                         <xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>
                         
                         <xsl:variable name="concatString">
-                            <xsl:if test="$volumeNumber">
+                            <xsl:if test="$volumeNumber and string-length($volumeNumber) &lt;= 3 and translate($volumeNumber, '0123456789', '') = ''">
                                 <xsl:text>Volume </xsl:text>
                                 <xsl:value-of select="$volumeNumber"/>
                             </xsl:if>
-                            <xsl:if test="$dateIssued">
+                            <xsl:if test="$dateIssued and not($captionYears)">
                                 <xsl:text>(</xsl:text>
                                 <xsl:value-of select="replace($dateIssued, '\.', '')"/>
                                 <xsl:text>)</xsl:text>
@@ -733,7 +733,7 @@
                         </subfield>
                         <xsl:for-each select="//*[@tag='245']/*[@code='a']">
                             <subfield code="t">
-                                <xsl:value-of select="replace(., '^From:|^From ', '')"/>
+                                <xsl:value-of select="translate(., '.', '')"/>
                             </subfield>
                         </xsl:for-each>
                         <subfield code="h">
@@ -748,18 +748,17 @@
                         <xsl:variable name="captionYears" select="mods:part/mods:detail[@type='volume']/mods:caption"/>
                         <xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
                         <xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
-                        <!--<xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>-->
-                        
-                        <xsl:if test="mods:part/mods:detail[@type='volume']/mods:number">
+                        <!--<xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>-->                 
+                        <xsl:if test="mods:part/mods:detail[@type='volume']/mods:number and string-length(mods:part/mods:detail[@type='volume']/mods:number) &lt;= 3 and translate(mods:part/mods:detail[@type='volume']/mods:number, '0123456789', '') = ''">
                             <subfield code="g">
                                 <xsl:text>volume:</xsl:text>
                                 <xsl:value-of select="mods:part/mods:detail[@type='volume']/mods:number"/>
                             </subfield>
                         </xsl:if>
-                        <xsl:if test="$dateIssued">
+                        <xsl:if test="$captionYears">
                             <subfield code="g">
-                                <xsl:text>year(scan):</xsl:text>
-                                <xsl:value-of select="replace($dateIssued, '\.', '')"/>
+                                <xsl:text>year/volume/issue(scan):</xsl:text>
+                                <xsl:value-of select="replace($captionYears, '\.', '')"/>
                             </subfield>
                         </xsl:if>
                         <xsl:if test="mods:part/mods:detail[@type='issue']/mods:number">
@@ -2583,8 +2582,15 @@
                     </xsl:otherwise>
                 </xsl:choose>
 
-                
-                <!-- 876 - Item Information - Basic Bibliographic Unit (R)  -->
+                <!-- 935 c Sonderdruck  -->
+                <xsl:if test="mods:physicalDescription/mods:form[@authority='local' and text()='Periodical']">
+                    <datafield tag="935" ind1=" " ind2=" ">
+                        <subfield code="c">
+                            <xsl:text>so</xsl:text>
+                        </subfield>
+                    </datafield>
+                </xsl:if>
+                    <!-- 876 - Item Information - Basic Bibliographic Unit (R)  -->
                 <xsl:if test="//*[@tag='876']">
                     <xsl:for-each select="//*[@tag='876'][local-name(*[1])='subfield']">
                         <xsl:call-template name="datafield">
