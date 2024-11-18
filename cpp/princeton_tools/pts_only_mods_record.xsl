@@ -556,6 +556,73 @@
 				<xsl:if test="mods:classification[@authority='lcc']">
 					<xsl:call-template name="lcClassification"/>
 				</xsl:if>
+				
+				<!-- 773 08 periodical -->
+				<xsl:if test="mods:physicalDescription/mods:form[@authority='local' and text()='Periodical']">
+					<datafield tag="773" ind1="0" ind2="8">
+						<!-- -->
+						<!-- "dateIssued" ass the whole year of the scan-->
+						<xsl:variable name="dateIssued" select="mods:originInfo/mods:dateIssued"/>
+						<xsl:variable name="captionYears" select="mods:part/mods:detail[@type='volume']/mods:caption"/>
+						<xsl:variable name="volumeNumber" select="mods:part/mods:detail[@type='volume']/mods:number"/>
+						<xsl:variable name="issueNumber" select="mods:part/mods:detail[@type='issue']/mods:number"/>
+						<xsl:variable name="pagesNumber" select="//*[@tag='300']/*[@code='a']"/>
+						<xsl:variable name="secondTitle" select="//*[@tag='245']/*[@code='b']"/>
+						
+						<xsl:variable name="concatString">
+							<xsl:if test="$volumeNumber and string-length($volumeNumber) &lt;= 3 and translate($volumeNumber, '0123456789', '') = ''">
+								<xsl:text>Volume </xsl:text>
+								<xsl:value-of select="$volumeNumber"/>
+							</xsl:if>
+							<xsl:if test="$dateIssued and not($captionYears)">
+								<xsl:text>(</xsl:text>
+								<xsl:value-of select="replace($dateIssued, '\.', '')"/>
+								<xsl:text>)</xsl:text>
+							</xsl:if>
+							<xsl:if test="$captionYears">
+								<xsl:text>(</xsl:text>
+								<xsl:value-of select="replace($captionYears, '\.', '')"/>
+								<xsl:text>)</xsl:text>
+							</xsl:if>
+							<xsl:if test="$issueNumber">
+								<xsl:text>, Issue </xsl:text>
+								<xsl:value-of select="$issueNumber"/>
+							</xsl:if>
+							<!--<xsl:if test="$pagesNumber">
+                                <xsl:text>, Seite </xsl:text>
+                                <xsl:value-of select="replace($pagesNumber, 'p\.|pages', '')"/>
+                            </xsl:if>-->
+						</xsl:variable>
+						<subfield code="q">
+							<xsl:value-of select="normalize-space($concatString)"/>
+						</subfield>
+						<subfield code="i">
+							<xsl:text>Sonderdruck aus</xsl:text>
+						</subfield>
+						<xsl:for-each select="mods:titleInfo[not(ancestor-or-self::mods:subject)][not(@type)][1]">
+							<subfield code="t">
+								<xsl:value-of select="translate(., '.', '')"/>
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="$secondTitle"/>
+							</subfield>
+						</xsl:for-each>
+						<subfield code="h">
+							<xsl:text>Online-Ressource</xsl:text>
+						</subfield>
+					</datafield>   
+				</xsl:if>
+				
+				<!-- 935 c Sonderdruck  -->
+				
+				<xsl:if test="mods:physicalDescription/mods:form[@authority='local' and text()='Periodical']">
+					<!-- 876 - Item Information - Basic Bibliographic Unit (R)  -->
+					<datafield tag="935" ind1=" " ind2=" ">
+						<subfield code="c">
+							<xsl:text>so</xsl:text>
+						</subfield>
+					</datafield>
+				</xsl:if>
+				
 				<!-- 852 - Location (R) -->
 				<!-- 852 will override/add by "DE-Tue135" -->
 				<xsl:choose>
