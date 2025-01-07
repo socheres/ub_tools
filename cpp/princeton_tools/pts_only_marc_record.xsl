@@ -730,6 +730,7 @@
                             <xsl:value-of select="normalize-space($concatString)"/>
                         </subfield>
                         <subfield code="i">
+                            <!-- for Periodical "Sonderdruck aus", else "Enthalten in" -->
                             <xsl:text>Sonderdruck aus</xsl:text>
                         </subfield>
                         <xsl:for-each select="//*[@tag='245']/*[@code='a']">
@@ -3684,7 +3685,7 @@
             <!-- 3.02 -->
             <xsl:for-each select="mods:title">
                 <subfield code="i">
-                    <xsl:text>Enthalten in</xsl:text>
+                    <xsl:text>Sonderdruck aus</xsl:text>
                 </subfield>	
                 <subfield code="t">
                     <xsl:value-of select="."/>
@@ -3791,8 +3792,8 @@
                 </xsl:if>
             </xsl:if>
         </xsl:variable>
-        
-        <xsl:call-template name="datafield">
+        <!-- for periodicals comment out this section preventing double tags 774 0 8 -->
+        <!--<xsl:call-template name="datafield">
             <xsl:with-param name="tag">773</xsl:with-param>
             <xsl:with-param name="ind1">0</xsl:with-param>
             <xsl:with-param name="ind2">8</xsl:with-param>
@@ -3802,7 +3803,7 @@
                 </subfield>
                 <xsl:call-template name="relatedItem76X-78X"/>
             </xsl:with-param>
-        </xsl:call-template>
+        </xsl:call-template>-->
         
         <!-- Journal article 773 -->
         <!-- Second datafield with multiple subfields -->
