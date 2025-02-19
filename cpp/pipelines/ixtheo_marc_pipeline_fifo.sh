@@ -103,7 +103,6 @@ StartPhase "Filter out Self-referential 856 Fields" \
      GesamtTiteldaten-post-phase"$((PHASE-1))"-"${date}".mrc GesamtTiteldaten-post-phase"$PHASE"-"${date}".mrc \
     --remove-fields '856u:ixtheo\.de' \
     --remove-fields 'LOK:086630(.*)\x{1F}x' `# Remove internal bibliographic comments` \
-    --filter-chars 130a:240a:245a '@' \
     --remove-subfields '6002:blmsh' '6102:blmsh' '6302:blmsh' '6892:blmsh' '6502:blmsh' '6512:blmsh' '6552:blmsh' \
                        '655k:.*' '655v:.*' \
     --replace 600a:610a:630a:648a:650a:650x:651a:653a:655a "(.*)\\.$" "\\1" `# Remove trailing periods for the following keyword normalisation.` \
@@ -145,7 +144,7 @@ StartPhase "Extract Translations and Generate Interface Translation Files"
     "$VUFIND_HOME"/local/tuefind/languages/de.ini `# German terms before all others.` \
     $(ls -1 "$VUFIND_HOME"/local/tuefind/languages/??.ini | grep -v 'de.ini$') >> "${log}" 2>&1 && \
 generate_vufind_translation_files "$VUFIND_HOME"/local/tuefind/languages/ >> "${log}" 2>&1 && \
-"$VUFIND_HOME"/clean_vufind_cache.sh >> "${log}" 2>&1 && \
+("$VUFIND_HOME"/clean_vufind_cache.sh || true) >> "${log}" 2>&1 && \
 EndPhase || Abort) &
 
 

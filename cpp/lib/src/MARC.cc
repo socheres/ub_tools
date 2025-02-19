@@ -662,6 +662,13 @@ void Record::merge(const Record &other) {
 }
 
 
+void Record::setLeader(const std::string new_leader) {
+    leader_ = new_leader;
+    if (not hasValidLeader())
+        LOG_ERROR("Invalid new leader: \"" + new_leader + "\"");
+}
+
+
 bool Record::isMonograph() const {
     for (const auto &_935_field : getTagRange("935")) {
         for (const auto &subfield : _935_field.getSubfields()) {
@@ -1186,21 +1193,31 @@ std::set<std::string> Record::getAllAuthors() const {
 }
 
 
-std::map<std::string, std::string> Record::getAllAuthorsAndPPNs() const {
-    std::map<std::string, std::string> author_names_to_authority_ppns_map;
+std::map<std::string, std::string> Record::getAllAuthorsAndCodes(auto &&extract_code_function) const {
+    std::map<std::string, std::string> author_names_to_code_map;
     std::set<std::string> already_seen_author_names;
     for (const auto &tag : AUTHOR_TAGS) {
         for (const auto &field : getTagRange(tag)) {
             for (const auto &subfield : field.getSubfields()) {
                 if (subfield.code_ == 'a' and already_seen_author_names.find(subfield.value_) == already_seen_author_names.end()) {
                     already_seen_author_names.emplace(subfield.value_);
-                    author_names_to_authority_ppns_map[subfield.value_] = BSZUtil::GetK10PlusPPNFromSubfield(field, '0');
+                    author_names_to_code_map[subfield.value_] = extract_code_function(field, '0');
                 }
             }
         }
     }
 
-    return author_names_to_authority_ppns_map;
+    return author_names_to_code_map;
+}
+
+
+std::map<std::string, std::string> Record::getAllAuthorsAndPPNs() const {
+    return getAllAuthorsAndCodes(BSZUtil::GetK10PlusPPNFromSubfield);
+}
+
+
+std::map<std::string, std::string> Record::getAllAuthorsAndGNDCodes() const {
+    return getAllAuthorsAndCodes(BSZUtil::GetGNDNumberFromSubfield);
 }
 
 
@@ -1237,8 +1254,12 @@ std::set<std::string> Record::getISSNs() const {
     std::set<std::string> issns;
     for (const auto &field : getTagRange("022")) {
         const std::string first_subfield_a(field.getFirstSubfieldWithCode('a'));
+        const std::string first_subfield_l(field.getFirstSubfieldWithCode('l'));
         std::string normalised_issn;
         if (MiscUtil::NormaliseISSN(first_subfield_a, &normalised_issn))
+            issns.insert(normalised_issn);
+
+        if (MiscUtil::NormaliseISSN(first_subfield_l, &normalised_issn))
             issns.insert(normalised_issn);
     }
 
@@ -1614,6 +1635,22 @@ bool Record::addSubfieldCreateFieldUnique(const Tag &field_tag, const char subfi
         return addSubfield(field_tag, subfield_code, subfield_value);
     }
     return false;
+}
+
+
+bool Record::addSubfieldCreateFieldIfNotExists(const Tag &field_tag, const char subfield_code, const std::string &subfield_value,
+                                               const char indicator1, const char indicator2) {
+    for (auto &field : getTagRange(field_tag)) {
+        if (field.getIndicator1() != indicator1 || field.getIndicator2() != indicator2)
+            continue;
+        if (field.hasSubfield(subfield_code))
+            return false;
+        Subfields subfields(field.getSubfields());
+        subfields.addSubfield(subfield_code, subfield_value);
+        field.setSubfields(subfields);
+        return true;
+    }
+    return insertField(field_tag, { { subfield_code, subfield_value } }, indicator1, indicator2);
 }
 
 
@@ -2712,23 +2749,24 @@ static std::unordered_map<Tag, bool> tag_to_repeatable_map{
     { Tag("337"), true },  { Tag("338"), true },  { Tag("340"), true },  { Tag("342"), true },
     { Tag("343"), true },  { Tag("344"), true },  { Tag("345"), true },  { Tag("346"), true },
     { Tag("347"), true },  { Tag("348"), true },  { Tag("351"), true },  { Tag("352"), true },
-    { Tag("355"), true },  { Tag("357"), false }, { Tag("362"), true },  { Tag("363"), true },
-    { Tag("365"), true },  { Tag("366"), true },  { Tag("370"), true },  { Tag("377"), true },
-    { Tag("380"), true },  { Tag("381"), true },  { Tag("382"), true },  { Tag("383"), true },
-    { Tag("384"), false }, { Tag("385"), true },  { Tag("386"), true },  { Tag("388"), true },
-    { Tag("490"), true },  { Tag("500"), true },  { Tag("501"), true },  { Tag("502"), true },
-    { Tag("504"), true },  { Tag("505"), true },  { Tag("506"), true },  { Tag("507"), true },
-    { Tag("508"), true },  { Tag("510"), true },  { Tag("511"), true },  { Tag("513"), true },
-    { Tag("514"), false }, { Tag("515"), true },  { Tag("516"), true },  { Tag("518"), true },
-    { Tag("520"), true },  { Tag("521"), true },  { Tag("522"), true },  { Tag("524"), true },
-    { Tag("525"), true },  { Tag("526"), true },  { Tag("530"), true },  { Tag("533"), true },
-    { Tag("534"), true },  { Tag("535"), true },  { Tag("536"), true },  { Tag("538"), true },
-    { Tag("540"), true },  { Tag("541"), true },  { Tag("542"), true },  { Tag("545"), true },
-    { Tag("546"), true },  { Tag("547"), true },  { Tag("550"), true },  { Tag("552"), true },
-    { Tag("555"), true },  { Tag("556"), true },  { Tag("561"), true },  { Tag("562"), true },
-    { Tag("563"), true },  { Tag("565"), true },  { Tag("567"), true },  { Tag("580"), true },
-    { Tag("581"), true },  { Tag("583"), true },  { Tag("584"), true },  { Tag("585"), true },
-    { Tag("586"), true },  { Tag("588"), true },  { Tag("600"), true },  { Tag("601"), true }, // non-standard field only used locally
+    { Tag("355"), true },  { Tag("357"), false }, { Tag("361"), true },  { Tag("362"), true },
+    { Tag("363"), true },  { Tag("365"), true },  { Tag("366"), true },  { Tag("370"), true },
+    { Tag("377"), true },  { Tag("380"), true },  { Tag("381"), true },  { Tag("382"), true },
+    { Tag("383"), true },  { Tag("384"), false }, { Tag("385"), true },  { Tag("386"), true },
+    { Tag("388"), true },  { Tag("490"), true },  { Tag("500"), true },  { Tag("501"), true },
+    { Tag("502"), true },  { Tag("504"), true },  { Tag("505"), true },  { Tag("506"), true },
+    { Tag("507"), true },  { Tag("508"), true },  { Tag("510"), true },  { Tag("511"), true },
+    { Tag("513"), true },  { Tag("514"), false }, { Tag("515"), true },  { Tag("516"), true },
+    { Tag("518"), true },  { Tag("520"), true },  { Tag("521"), true },  { Tag("522"), true },
+    { Tag("524"), true },  { Tag("525"), true },  { Tag("526"), true },  { Tag("530"), true },
+    { Tag("533"), true },  { Tag("534"), true },  { Tag("535"), true },  { Tag("536"), true },
+    { Tag("538"), true },  { Tag("540"), true },  { Tag("541"), true },  { Tag("542"), true },
+    { Tag("545"), true },  { Tag("546"), true },  { Tag("547"), true },  { Tag("550"), true },
+    { Tag("552"), true },  { Tag("555"), true },  { Tag("556"), true },  { Tag("561"), true },
+    { Tag("562"), true },  { Tag("563"), true },  { Tag("565"), true },  { Tag("567"), true },
+    { Tag("580"), true },  { Tag("581"), true },  { Tag("583"), true },  { Tag("584"), true },
+    { Tag("585"), true },  { Tag("586"), true },  { Tag("588"), true },  { Tag("600"), true },
+    { Tag("601"), true }, // non-standard field only used locally
     { Tag("610"), true },  { Tag("611"), true },  { Tag("630"), true },  { Tag("647"), true },
     { Tag("648"), true },  { Tag("650"), true },  { Tag("651"), true },  { Tag("652"), false }, // non-standard field only used locally
     { Tag("653"), true },  { Tag("654"), true },  { Tag("655"), true },  { Tag("657"), true },
@@ -2796,7 +2834,7 @@ bool UBTueIsElectronicResource(const Record &marc_record) {
 }
 
 
-bool IsOpenAccess(const Record &marc_record) {
+bool IsOpenAccess(const Record &marc_record, const bool suppress_unpaywall) {
     for (const auto &_856_field : marc_record.getTagRange("856")) {
         const Subfields subfields(_856_field.getSubfields());
         const std::string subfield_z_contents(subfields.getFirstSubfieldWithCode('z'));
@@ -2808,9 +2846,11 @@ bool IsOpenAccess(const Record &marc_record) {
                 return true;
         }
 
-        for (const auto &subfield : subfields) {
-            if (subfield.code_ == 'x' and TextUtil::UTF8ToLower(subfield.value_) == "unpaywall")
-                return true;
+        if (not suppress_unpaywall) {
+            for (const auto &subfield : subfields) {
+                if (subfield.code_ == 'x' and TextUtil::UTF8ToLower(subfield.value_) == "unpaywall")
+                    return true;
+            }
         }
     }
 

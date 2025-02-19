@@ -96,6 +96,21 @@ void InsertAuthors(const std::string, const char, MARC::Record * const record, c
     }
 }
 
+void InsertFurtherAuthors(const std::string, const char, MARC::Record * const record, const std::string &data) {
+    if (data.length()) {
+        std::vector<std::string> authors;
+        std::string author, further_parts;
+        std::string data_to_split(data);
+        while (StringUtil::SplitOnString(data_to_split, " and ", &author, &further_parts)) {
+            authors.emplace_back(author);
+            data_to_split = further_parts;
+        }
+        authors.emplace_back(data_to_split);
+        for (auto further_author = authors.begin(); further_author != authors.end(); ++further_author)
+            record->insertField("700", { { 'a', *further_author }, { '4', "aut" }, { 'e', "VerfasserIn" } });
+    }
+}
+
 
 void InsertCreationField(const std::string &tag, const char, MARC::Record * const record, const std::string &data) {
     if (data.length()) {
@@ -159,7 +174,8 @@ void AppendAuthorFirstName(const std::string, const char, MARC::Record * const r
 }
 
 void ExtractStudiaPatavinaVolumeYearAndPages(const std::string, const char, MARC::Record * const record, const std::string &data) {
-    const std::string component_matcher_str("Vol[.]\\s+(\\d+)[(](\\d{4})[)](\\d+),\\s*(\\d+)-(\\d+)\\s*p.");
+    const std::string component_matcher_str(
+        "[Vv]ol[.]\\s+(\\d+)[(](\\d{4})[)](\\d+(?:[-]\\d+)?)\\s*,\\s*(?:p[.]\\s*)?(\\d+)-(\\d+)\\s*(?:\\s*p[.])?");
     static ThreadSafeRegexMatcher matcher((ThreadSafeRegexMatcher(component_matcher_str)));
     const auto matched(matcher.match(data));
 
@@ -210,8 +226,8 @@ void ExtractRivistaVolumeIssueAndYear(const std::string, const char, MARC::Recor
         const std::string volume(matched[1]);
         _936_subfields.addSubfield('d', volume);
 
-        const std::string issue(matched[2]);
-        _936_subfields.addSubfield('e', issue);
+        std::string issue(matched[2]);
+        _936_subfields.addSubfield('e', StringUtil::Map(&issue, '-', '/'));
 
         const std::string year(matched[3]);
         _936_subfields.addSubfield('j', year);
@@ -226,18 +242,20 @@ void ExtractRivistaVolumeIssueAndYear(const std::string, const char, MARC::Recor
 
 
 void ExtractRevistaPages(const std::string, const char, MARC::Record * const record, const std::string &data) {
-    const std::string page_str("(?:P|pp)[.]\\s+(\\d+)-(\\d+)");
+    const std::string page_str("(?:P|pp)[.]\\s*(\\d+)(?:-(\\d+))?");
     static ThreadSafeRegexMatcher matcher((ThreadSafeRegexMatcher(page_str)));
     const auto matched(matcher.match(data));
 
     if (matched) {
         MARC::Subfields _936_subfields;
         const std::string start_page(matched[1]);
-        const std::string end_page(matched[2]);
-        _936_subfields.addSubfield('h', start_page + "-" + end_page);
+        std::string end_page;
+        if (matched.size() > 2)
+            end_page = matched[2];
+        _936_subfields.addSubfield('h', start_page + (not end_page.empty() ? "-" + end_page : ""));
         CreateOrAppendTo936IfPresent(record, _936_subfields);
     } else
-        LOG_WARNING("Could not extract pages from \"" + data + "\"");
+        LOG_WARNING("Could not extract pages from \"" + data + "\" for record " + record->getControlNumber());
 }
 
 
@@ -252,6 +270,7 @@ const std::map<std::string, ConversionFunctor> name_to_functor_map{
     { "InsertField", InsertField },
     { "InsertCreationField", InsertCreationField },
     { "InsertAuthors", InsertAuthors },
+    { "InsertFurtherAuthors", InsertFurtherAuthors },
     { "InsertOrForceSubfield", InsertOrForceSubfield },
     { "InsertOrAppendToSubfield", InsertOrAppendToSubfield },
     { "AppendAuthorFirstName", AppendAuthorFirstName },
@@ -398,8 +417,8 @@ std::string Assemble773gContent(const MARC::Record &record) {
 
 void AddSelectors(MARC::Record * const record) {
     record->insertFieldAtEnd("935", { { 'a', "itbk" }, { '2', "LOK" } });
-    record->insertFieldAtEnd("935", { { 'a', "aixrk" }, { '2', "LOK" } });
-    record->insertFieldAtEnd("935", { { 'a', "aixzs" }, { '2', "LOK" } });
+    record->insertFieldAtEnd("935", { { 'a', "ixrk" }, { '2', "LOK" } });
+    record->insertFieldAtEnd("935", { { 'a', "ixzs" }, { '2', "LOK" } });
 }
 
 
@@ -413,10 +432,13 @@ void ConvertRecords(MARC::Reader * const marc_reader, MARC::Writer * const marc_
              ++marc_to_marc_mapping) {
             std::string tag(marc_to_marc_mapping->marc_in_tag_and_subfield_.substr(0, 3));
             char subfield_code(marc_to_marc_mapping->marc_in_tag_and_subfield_[3]);
-            if (unlikely(!subfield_code))
-                marc_to_marc_mapping->extraction_function_(new_record, record.getFirstFieldContents(tag));
-            else
-                marc_to_marc_mapping->extraction_function_(new_record, record.getFirstSubfieldValue(tag, subfield_code));
+            if (unlikely(!subfield_code)) {
+                for (const auto &field : record.getTagRange(tag))
+                    marc_to_marc_mapping->extraction_function_(new_record, field.getContents());
+            } else {
+                for (const auto &field : record.getTagRange(tag))
+                    marc_to_marc_mapping->extraction_function_(new_record, field.getFirstSubfieldWithCode(subfield_code));
+            }
         }
         // Dummy entries
         new_record->insertField("003", "DE-Tue135");
@@ -426,6 +448,7 @@ void ConvertRecords(MARC::Reader * const marc_reader, MARC::Writer * const marc_
         new_record->insertField("773", GetSuperiorWorkDescription(ojsitaly_type, Assemble773gContent(*new_record)));
         new_record->insertField("852", { { 'a', "DE-Tue135" } });
         new_record->insertField("912", { { 'a', "NOMM" } });
+        new_record->insertField("935", { { 'a', "mteo" } });
         CleanTitles(new_record);
         AddSelectors(new_record);
         marc_writer->write(*new_record);

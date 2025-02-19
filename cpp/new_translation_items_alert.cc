@@ -39,12 +39,14 @@ namespace {
 
 const std::string CONF_FILE_PATH(UBTools::GetTuelibPath() + "translations.conf");
 const std::string NEW_ITEM_NOTIFICATION_SECTION("NewItemNotifications");
+const std::string NEW_ITEM_NOTIFICATION_REFERENCE_LANGUAGE_SECTION("NewItemNotificationsReferenceLanguage");
 const std::string TRANSLATION_LANGUAGES_SECTION("TranslationLanguages");
 const std::string EMAIL_SECTION("Email");
+static std::string translator_url("https://ixtheo.de/cgi-bin/translator");
 
 [[noreturn]] void Usage() {
     ::Usage(
-        "[--debug]\n"
+        "[--debug] translator_url\n"
         "Debug suppresses sending of Emails and updating of the last_notified_timestamp");
 }
 
@@ -96,8 +98,15 @@ std::string GetAbsoluteTimeForInterval(DbConnection &db_connection, const std::s
 
 
 std::string GetLastNotified(DbConnection &db_connection, const std::string &user) {
-    const std::string last_notified_query("SELECT last_notified FROM translators WHERE translator='" + user + "'");
+    // Make sure we get the non null entry first
+    const std::string last_notified_query("SELECT last_notified FROM translators WHERE translator='" + user
+                                          + "' ORDER BY CASE WHEN last_notified IS NULL THEN 1 ELSE 0 END, last_notified");
     DbResultSet last_notified_result(ExecSqlAndReturnResultsOrDie(last_notified_query, &db_connection));
+    // Make user a translator;
+    if (last_notified_result.empty()) {
+        db_connection.queryOrDie("INSERT INTO translators SET translator='" + user + "', translation_target='vufind'");
+        return GetLastNotified(db_connection, user);
+    }
     return last_notified_result.getNextRow()["last_notified"];
 }
 
@@ -109,7 +118,25 @@ std::string GetCurrentDBTimestamp(DbConnection &db_connection) {
 }
 
 
-bool GetNewItems(DbConnection &db_connection, const std::string last_notified, Template::Map * const names_to_values_map) {
+void SetTranslatorURL(const std::string &new_translator_url) {
+    translator_url = new_translator_url;
+}
+
+
+std::string GetTranslatorURL() {
+    return translator_url;
+}
+
+
+std::string GetUserReferenceLanguage(const IniFile &ini_file, const std::string &user) {
+    std::string reference_language;
+    ini_file.lookup(NEW_ITEM_NOTIFICATION_REFERENCE_LANGUAGE_SECTION, user, &reference_language);
+    return reference_language;
+}
+
+
+bool GetNewItems(DbConnection &db_connection, const std::string last_notified, Template::Map * const names_to_values_map,
+                 const std::string &reference_language) {
     names_to_values_map->clear();
 
     std::string vufind_new_items_query("SELECT token FROM vufind_translations WHERE create_timestamp>='" + last_notified + "'"
@@ -123,7 +150,8 @@ bool GetNewItems(DbConnection &db_connection, const std::string last_notified, T
 
 
     std::string keywords_new_items_query("SELECT translation FROM keyword_translations WHERE create_timestamp>='" + last_notified
-                                         + +"' AND language_code='ger' AND origin='150' AND prev_version_id IS NULL");
+                                         + "' AND language_code='" + (reference_language.empty() ? "ger" : reference_language)
+                                         + "' AND origin='150' AND prev_version_id IS NULL");
     DbResultSet keywords_new_result_set(ExecSqlAndReturnResultsOrDie(keywords_new_items_query, &db_connection));
 
     std::vector<std::string> keywords_new_items;
@@ -131,6 +159,7 @@ bool GetNewItems(DbConnection &db_connection, const std::string last_notified, T
         keywords_new_items.emplace_back(db_row["translation"]);
     names_to_values_map->insertArray("keywords_new_items", keywords_new_items);
     names_to_values_map->insertScalar("last_notified", last_notified.substr(0, __builtin_strlen("0000-00-00")));
+    names_to_values_map->insertScalar("translator_url", GetTranslatorURL());
     return (not(vufind_new_items.empty() && keywords_new_items.empty()));
 }
 
@@ -170,7 +199,7 @@ std::string GetNotifyThreshold(const IniFile &ini_file, DbConnection &db_connect
 
 
 bool NotifyTimeExceeded(DbConnection &db_connection, const std::string &last_notified, const std::string notify_threshold) {
-    const std::string query("SELECT DATEDIFF('" + notify_threshold + "','" + last_notified + "') <= 0 AS notify_time_exceeded");
+    const std::string query("SELECT DATEDIFF('" + last_notified + "','" + notify_threshold + "') <= 0 AS notify_time_exceeded");
     DbResultSet result(ExecSqlAndReturnResultsOrDie(query, &db_connection));
     return (bool)std::atoi(result.getNextRow()["notify_time_exceeded"].c_str());
 }
@@ -180,8 +209,12 @@ void UpdateLastNotifiedTo(DbConnection * const db_connection, const std::string 
                           const bool debug = false) {
     if (debug)
         return;
+    const std::string target_selection_statement("SELECT translation_target FROM translators WHERE translator='" + user
+                                                 + "' ORDER BY CASE WHEN last_notified IS NULL THEN 1 ELSE 0 END LIMIT 1");
 
-    const std::string update_statement("UPDATE translators SET last_notified ='" + new_last_notified + "' WHERE translator='" + user + "'");
+    DbResultSet target_selection_result(ExecSqlAndReturnResultsOrDie(target_selection_statement, db_connection));
+    const std::string update_statement("UPDATE translators SET last_notified ='" + new_last_notified + "' WHERE translator='" + user
+                                       + "' AND translation_target='" + target_selection_result.getNextRow()["translation_target"] + "'");
     db_connection->queryOrDie(update_statement);
 }
 
@@ -207,7 +240,8 @@ void NotifyTranslators(const IniFile &ini_file, DbConnection &db_connection, con
         Template::Map names_to_values_map;
         // Hold a time slightly before the actual queries were sent
         const std::string query_time_lower_bound(GetCurrentDBTimestamp(db_connection));
-        if (GetNewItems(db_connection, last_notified, &names_to_values_map))
+        const std::string user_reference_language(GetUserReferenceLanguage(ini_file, user));
+        if (GetNewItems(db_connection, last_notified, &names_to_values_map, user_reference_language))
             MailNewItems(user, ini_file, names_to_values_map, debug);
         UpdateLastNotifiedTo(&db_connection, user, query_time_lower_bound, debug);
     }
@@ -219,11 +253,16 @@ void NotifyTranslators(const IniFile &ini_file, DbConnection &db_connection, con
 
 int Main(int argc, char **argv) {
     bool debug(false);
-    if (argc > 2)
+    if (argc < 2)
         Usage();
-    if (argc == 2 and std::strcmp("--debug", argv[1]) == 0)
+    if (argc > 3)
+        Usage();
+    if (argc == 3 and std::strcmp("--debug", argv[1]) == 0) {
         debug = true;
+        ++argv, --argc;
+    }
 
+    SetTranslatorURL(argv[1]);
     const IniFile ini_file(CONF_FILE_PATH);
     const std::string sql_database(ini_file.getString("Database", "sql_database"));
     const std::string sql_username(ini_file.getString("Database", "sql_username"));
