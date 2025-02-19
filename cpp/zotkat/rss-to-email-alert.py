@@ -23,8 +23,7 @@ EMAIL_PASSWORD = "xxx"  # Replace with your email password
 ALERT_EMAIL = "xxx"  # Replace with the recipient email
 USER_HOME = "xxx"  # Update to your home path
 BASE_DIR = os.path.join(USER_HOME, "rssemail")
-#CACHE_FILE = os.path.join(BASE_DIR, "rss_cache.txt")
-#LOG_DIR = os.path.join(BASE_DIR, "logs")
+
 print(f"Python executable: {sys.executable}")
 print(f"Current working directory: {os.getcwd()}")
 print(f"Script directory: {os.path.dirname(os.path.abspath(__file__))}")
@@ -101,6 +100,11 @@ def parse_datetime(date_str):
             continue
     return None
 
+def normalize_uri(uri):
+    """Clean URIs for consistent cache checks"""
+    uri = uri.strip()  # Remove whitespace
+    return uri  
+
 def get_feed_entries(feed_url):
     """Fetch and parse RSS feed entries"""
     try:
@@ -108,7 +112,7 @@ def get_feed_entries(feed_url):
 
         # Configure retry FIRST
         retries = requests.adapters.Retry(
-            total=3,
+            total=7,
             backoff_factor=0.3,
             status_forcelist=[403, 500, 502, 503, 504]
         )
@@ -169,7 +173,7 @@ def get_feed_entries(feed_url):
 
         for item in feed.iterfind('.//item'):
             entry = {
-                'guid': item.findtext('guid') or item.findtext('link'),
+                'guid': (item.findtext('guid') or item.findtext('link') or '').strip(),
                 'title': item.findtext('title', 'No Title').strip(),
                 'link': item.findtext('link', '').strip(),
                 'description': (item.findtext('description', '') or '').strip(),
@@ -180,11 +184,13 @@ def get_feed_entries(feed_url):
 
 
         # KEY FIX: Use the correct XPath with the 'rss' namespace
-        for item in feed.findall('.//rss:item', namespaces=namespaces):  # <-- Changed to `rss:item`
+        for item in feed.findall('.//rss:item', namespaces=namespaces):  
             entry = {
-                'guid': (item.findtext('rss:guid', namespaces=namespaces) or 
-                        item.findtext('dc:identifier', namespaces=namespaces) or 
-                        item.findtext('rss:link', namespaces=namespaces)),
+                'guid': (
+                    (item.findtext('rss:guid', namespaces=namespaces, default='') or '').strip() or 
+                    (item.findtext('dc:identifier', namespaces=namespaces, default='') or '').strip() or 
+                    (item.findtext('rss:link', namespaces=namespaces, default='') or '').strip()
+                ),
                 'title': item.findtext('rss:title', namespaces=namespaces, default='No Title').strip(),
                 'link': item.findtext('rss:link', namespaces=namespaces, default='').strip(),
                 'description': (item.findtext('rss:description', namespaces=namespaces, default='') or '').strip(),
@@ -260,9 +266,13 @@ def process_feed(feed, cache):
         entries = sorted(entries, key=lambda x: format_datetime(x['pub_date']) or datetime.min)
         
         for entry in entries:
-            if entry['guid'] not in cache:
+            # Use normalized GUID
+            normalized_guid = normalize_uri(entry['guid'])
+            entry['guid'] = normalized_guid  # Update entry GUID
+
+            if normalized_guid not in cache:
                 new_entries.append(entry)
-                cache.add(entry['guid'])
+                cache.add(normalized_guid)
         
         return {
             'success': True,
