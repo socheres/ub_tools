@@ -13,16 +13,20 @@ from time import mktime, strptime
 from datetime import datetime
 
 # Configuration
+
 CACHE_FILE = "rss_cache.txt"
-SMTP_SERVER = "smtp.gmail.com"  # Replace with your SMTP server
+SMTP_SERVER = "smtpserv.uni-xxx.de"
 SMTP_PORT = 587
 LOG_DIR = "logs"
 LOG_FILE_FORMAT = "%Y-%m-%d-rss.log"
-EMAIL_ADDRESS = "xxx@gmail.com"  # Replace with your email
-EMAIL_PASSWORD = "xxx"  # Replace with your email password
-ALERT_EMAIL = "xxx"  # Replace with the recipient email
-USER_HOME = "xxx"  # Update to your home path
+EMAIL_ADDRESS = "xxx@ub.uni-xxx.de"
+EMAIL_PASSWORD = "xxx" 
+ALERT_EMAIL = "xxx-alerts@ub.uni-xxx.de" 
+USER_HOME = "/Users/xxx"
 BASE_DIR = os.path.join(USER_HOME, "rssemail")
+FROM_ADDRESS = EMAIL_ADDRESS 
+USE_SMTP_AUTH = True  
+
 
 print(f"Python executable: {sys.executable}")
 print(f"Current working directory: {os.getcwd()}")
@@ -68,7 +72,7 @@ def parse_opml(opml_content):
     for outline in root.iter('outline'):
         if outline.attrib.get('type', '') == 'rss':
             feed = {
-                'title': outline.attrib.get('title', 'Untitled Feed'),
+                'title': outline.attrib.get('text', 'Untitled Feed'),
                 'url': outline.attrib.get('xmlUrl', ''),
                 'website': outline.attrib.get('htmlUrl', '')
             }
@@ -239,22 +243,30 @@ def format_datetime(pub_date_str):
             return None
     return None
 
-def send_email(subject, body):
-    """Send email notification"""
+def send_email_with_retry(subject, body, max_retries=3):
+    """Send email through university SMTP server"""
     msg = MIMEMultipart()
-    msg['From'] = EMAIL_ADDRESS
+    msg['From'] = FROM_ADDRESS
     msg['To'] = ALERT_EMAIL
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 
-    try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.sendmail(EMAIL_ADDRESS, ALERT_EMAIL, msg.as_string())
-        print(f"Email sent: {subject}")
-    except Exception as e:
-        print(f"Error sending email: {e}")
+    for attempt in range(max_retries):
+        try:
+            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+                
+                if USE_SMTP_AUTH and EMAIL_PASSWORD:
+                    server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                
+                server.sendmail(FROM_ADDRESS, ALERT_EMAIL, msg.as_string())
+                return True
+
+        except smtplib.SMTPException as e:
+            print(f"SMTP error (attempt {attempt+1}): {str(e)}")
+            time.sleep(5 * (attempt+1))  # Exponential backoff
+            
+    return False
+
 
 def process_feed(feed, cache):
     """Process a single feed and return result with status"""
